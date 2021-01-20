@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const layout = require('express-ejs-layouts')
 
@@ -24,6 +25,6 @@ app.get('/profile', (req, res) => {
     res.render('profile.ejs')
 })
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log('Hello from port 3000')
 })
