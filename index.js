@@ -21,6 +21,8 @@ const path = require('path')
 app.use(express.static(path.join(__dirname, 'public')))
 
 // Session middleware
+console.log(process.env.PORT)
+console.log(process.env.SESSION_SECRET)
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -43,6 +45,8 @@ app.use((req, res, next) => {
 
 // Import modules
 app.use('/auth', require('./controllers/auth'))
+//app.use('/requests', require('./controllers/requests'))
+//app.use('/offers', require('./controllers/offers'))
 
 // Home route
 app.get('/', (req, res) => {
@@ -58,6 +62,6 @@ app.get('*', (req, res) => {
     res.render('404.ejs')
 })
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT, () => {
     console.log('Hello from port 3000')
 })
