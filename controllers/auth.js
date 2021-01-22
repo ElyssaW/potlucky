@@ -14,6 +14,7 @@ router.get('/signup', (req, res) => {
 
 // Post signup
 router.post('/signup', (req, res) => {
+    console.log(req.body.usertype)
     db.user.findOrCreate({
         where: {
             email: req.body.email
@@ -21,7 +22,7 @@ router.post('/signup', (req, res) => {
         defaults: {
             name: req.body.name,
             password: req.body.password,
-            usertype: req.body.userType,
+            usertype: req.body.usertype,
             fills: 0,
             reqs: 0,
             likes: 0

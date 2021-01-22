@@ -16,6 +16,10 @@ app.use(layout)
 // Body parser
 app.use(express.urlencoded({ extended: false }))
 
+// Public folder
+const path = require('path')
+app.use(express.static(path.join(__dirname, 'public')))
+
 // Session middleware
 app.use(session({
     secret: process.env.SESSION_SECRET,
