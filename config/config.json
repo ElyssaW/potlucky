@@ -2,7 +2,7 @@
   "development": {
     "username": "Elyssa",
     "password": "password",
-    "database": "auth_dev",
+    "database": "potlucky_dev",
     "host": "127.0.0.1",
     "dialect": "postgres"
   }

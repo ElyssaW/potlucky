@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.user.hasMany(models.request)
+      models.user.hasMany(models.offer)
+      models.user.belongsToMany(models.location, {through: 'userLocation'})
     }
   };
   user.init({
@@ -48,7 +51,11 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Password must be between 8 and 99 characters'
         }
       }
-    }
+    },
+    usertype: DataTypes.STRING,
+    fills: DataTypes.INTEGER,
+    reqs: DataTypes.INTEGER,
+    likes: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'user',
