@@ -17,8 +17,11 @@ passport.serializeUser((user, doneCallback) => {
 passport.deserializeUser((id, doneCallback) => {
     db.user.findByPk(id)
     .then(foundUser => {
-        console.log('Deserializing user...')
-        doneCallback(null, foundUser)
+        foundUser.getLocations().then(locations => {
+            console.log('Deserializing user...')
+            foundUser.locations = locations
+            doneCallback(null, foundUser)
+        })
     })
     .catch(err => {
         console.log('ERROR deserializing user')
@@ -51,6 +54,7 @@ const findAndLogInUser = ((email, password, doneCallback) => {
             return doneCallback(null, false)
         } else {
             foundUser.getLocations().then(locations => {
+                foundUser.locations = locations
                 return doneCallback(null, foundUser)
             })
         }

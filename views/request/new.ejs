@@ -10,11 +10,10 @@
   </div>
 
   <div class="col-md-4">
-    <label for="input-state" class="form-label">State</label>
-    <select id="input-state" name="state" class="form-select">
-      <option selected>Choose...</option>
-      <% user.locations.forEach(location => { %>
-        <option selected><%= location.address %></option>
+    <label for="input-location" class="form-label">Location</label>
+    <select id="input-location" name="locationId" class="form-select">
+      <% locations.forEach(location => { %>
+        <option value="<%= location.id %>" selected><%= location.address %></option>
       <% }) %>
     </select>
   </div>

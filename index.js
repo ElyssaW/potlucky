@@ -38,8 +38,13 @@ app.use(flash())
 // CUSTOM MIDDLEWARE
 app.use((req, res, next) => {
     res.locals.alerts = req.flash()
-    res.locals.currentUser = req.user
-    next() // move onto the next piece
+    if(req.user) {
+        res.locals.currentUser = req.user
+        next() // move onto the next piece
+    } else {
+        res.locals.currentUser = req.user
+        next() // move onto the next piece
+    }
 })
 
 // Import modules
@@ -56,15 +61,14 @@ app.get('/', (req, res) => {
 app.get('/profile/:id', isLoggedIn, (req, res) => {
     db.user.findByPk(req.params.id).then(user => {
         user.getLocations().then(locations => {
-            console.log(locations)
             res.render('profile.ejs', {locations: locations})
         })
     })
 })
 
-app.get('*', (req, res) => {
-    res.render('404.ejs')
-})
+// app.get('*', (req, res) => {
+//     res.render('404.ejs')
+// })
 
 app.listen(process.env.PORT, () => {
     console.log('Hello from port 3000')
