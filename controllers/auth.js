@@ -14,7 +14,6 @@ router.get('/signup', (req, res) => {
 
 // Post signup
 router.post('/signup', (req, res) => {
-    console.log(req.body.usertype)
     db.user.findOrCreate({
         where: {
             email: req.body.email
@@ -27,19 +26,36 @@ router.post('/signup', (req, res) => {
             reqs: 0,
             likes: 0
         }
-    }).then(([user, wasCreated]) => {
-        if(wasCreated) {
-            passport.authenticate('local', {
-                successRedirect: '/',
-                successFlash: 'Account created and user logged in.'
-            })(req, res)
+    })
+    .then(([user, wasCreated])=>{
+        if(wasCreated){
+            console.log('Creating location')
+            db.location.findOrCreate({
+                where: {
+                    city: req.body.city,
+                    address: req.body.address,
+                    zipcode: req.body.zipcode,
+                    state: req.body.state,
+                    country: 'US'
+                }
+            }).then(([location, wasCreated]) => {
+                console.log('Location created, adding...')
+                user.addLocation(location).then(() => {
+                    console.log('Location added. Yay!')
+                    passport.authenticate('local', {
+                        successRedirect: '/',
+                        successFlash: 'Account created and user logged in!'
+                    })(req, res)
+                })
+            })
         } else {
-            req.flash('error', 'An account associated with that email address already exists! Do you want to log in?')
+            req.flash('error', 'An account associated with that email address already exists! Did you mean to log in?')
             res.redirect('/auth/login')
         }
     })
-    .catch(err => {
+    .catch(err=>{
         req.flash('error', err.message)
+        res.redirect('/auth/signup')
     })
 })
 

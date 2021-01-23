@@ -16,6 +16,7 @@ router.post('/new/:id', (req, res) => {
 
 router.get('/edit/:id', (req, res) => {
     res.render('request/edit.ejs')
+    db.user.findOne()
 })
 
 router.put('/edit/:id', (req, res) => {

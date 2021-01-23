@@ -21,8 +21,6 @@ const path = require('path')
 app.use(express.static(path.join(__dirname, 'public')))
 
 // Session middleware
-console.log(process.env.PORT)
-console.log(process.env.SESSION_SECRET)
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
