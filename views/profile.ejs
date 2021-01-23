@@ -1,6 +1,6 @@
 <h4><%= currentUser.name %>'s profile</h4>
 
-<h4>Location: <% locations.forEach((location, i) => { %>
+<h4>Location: <% currentUser.locations.forEach((location, i) => { %>
     <%= location.address %>, <%= location.zipcode %>
-    <% if (i !== locations.length - 1) { %>, <% } %>
+    <% if (i !== currentUser.locations.length - 1) { %>, <% } %>
 <% }) %></h4>

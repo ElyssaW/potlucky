@@ -59,11 +59,7 @@ app.get('/', (req, res) => {
 
 // Profile route
 app.get('/profile/:id', isLoggedIn, (req, res) => {
-    db.user.findByPk(req.params.id).then(user => {
-        user.getLocations().then(locations => {
-            res.render('profile.ejs', {locations: locations})
-        })
-    })
+    res.render('profile.ejs')
 })
 
 // app.get('*', (req, res) => {

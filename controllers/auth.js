@@ -29,7 +29,6 @@ router.post('/signup', (req, res) => {
     })
     .then(([user, wasCreated])=>{
         if(wasCreated){
-            console.log('Creating location')
             db.location.findOrCreate({
                 where: {
                     city: req.body.city,
@@ -39,12 +38,8 @@ router.post('/signup', (req, res) => {
                     country: 'US'
                 }
             }).then(([location, wasCreated]) => {
-                console.log('Location created, adding...')
                 user.addLocation(location).then(() => {
                     user.getLocations().then(locations => {
-                        user.location = locations
-                        console.log('Location added. Yay!')
-                        console.log(user.location)
                         passport.authenticate('local', {
                             successRedirect: '/',
                             successFlash: 'Account created and user logged in!'

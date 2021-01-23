@@ -3,12 +3,8 @@ let router = express.Router()
 const isLoggedIn = require('../middleware/isLoggedIn.js')
 const db = require('../models/index.js')
 
-router.get('/new/:id', isLoggedIn, (req, res) => {
-    db.user.findByPk(req.params.id).then(user => {
-        user.getLocations().then(locations => {
-            res.render('request/new.ejs', {locations:locations})
-        })
-    })
+router.get('/new', isLoggedIn, (req, res) => {
+    res.render('request/new.ejs')
 })
 
 router.post('/new', (req, res) => {
@@ -18,6 +14,9 @@ router.post('/new', (req, res) => {
         content: req.body.content,
         recipelink: req.body.recipelink,
         filled: 0
+    }).then(ask => {
+        console.log(`Created ${ask}`)
+        res.redirect('/request/search')
     })
 })
 
