@@ -41,11 +41,15 @@ router.post('/signup', (req, res) => {
             }).then(([location, wasCreated]) => {
                 console.log('Location created, adding...')
                 user.addLocation(location).then(() => {
-                    console.log('Location added. Yay!')
-                    passport.authenticate('local', {
-                        successRedirect: '/',
-                        successFlash: 'Account created and user logged in!'
-                    })(req, res)
+                    user.getLocations().then(locations => {
+                        user.location = locations
+                        console.log('Location added. Yay!')
+                        console.log(user.location)
+                        passport.authenticate('local', {
+                            successRedirect: '/',
+                            successFlash: 'Account created and user logged in!'
+                        })(req, res)
+                    })
                 })
             })
         } else {

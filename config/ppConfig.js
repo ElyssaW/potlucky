@@ -50,7 +50,9 @@ const findAndLogInUser = ((email, password, doneCallback) => {
             console.log('Password was not validated')
             return doneCallback(null, false)
         } else {
-            return doneCallback(null, foundUser)
+            foundUser.getLocations().then(locations => {
+                return doneCallback(null, foundUser)
+            })
         }
     })
     .catch(error => {

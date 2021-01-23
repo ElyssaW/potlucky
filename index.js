@@ -5,6 +5,7 @@ const session = require('express-session')
 const passport = require('./config/ppConfig.js')
 const flash = require('connect-flash')
 const isLoggedIn = require('./middleware/isLoggedIn.js')
+const db = require('./models')
 
 // Instantiate express
 let app = express()
@@ -42,9 +43,9 @@ app.use((req, res, next) => {
 })
 
 // Import modules
-app.use('/auth', require('./controllers/auth'))
-//app.use('/requests', require('./controllers/requests'))
-//app.use('/offers', require('./controllers/offers'))
+app.use('/auth', require('./controllers/auth.js'))
+app.use('/offer', require('./controllers/offer.js'))
+app.use('/request', require('./controllers/ask.js'))
 
 // Home route
 app.get('/', (req, res) => {
@@ -52,8 +53,13 @@ app.get('/', (req, res) => {
 })
 
 // Profile route
-app.get('/profile', isLoggedIn, (req, res) => {
-    res.render('profile.ejs')
+app.get('/profile/:id', isLoggedIn, (req, res) => {
+    db.user.findByPk(req.params.id).then(user => {
+        user.getLocations().then(locations => {
+            console.log(locations)
+            res.render('profile.ejs', {locations: locations})
+        })
+    })
 })
 
 app.get('*', (req, res) => {

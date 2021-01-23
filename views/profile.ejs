@@ -1,5 +1,6 @@
 <h4><%= currentUser.name %>'s profile</h4>
 
-<form action="/auth/login">
-    <input type="submit" value="Login">
-</form>
+<h4>Location: <% locations.forEach((location, i) => { %>
+    <%= location.address %>, <%= location.zipcode %>
+    <% if (i !== locations.length - 1) { %>, <% } %>
+<% }) %></h4>

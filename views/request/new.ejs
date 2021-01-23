@@ -1,10 +1,21 @@
-<div class="mb-3">
+<form>
+  <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label">Title</label>
     <input type="text" class="form-control" id="exampleFormControlInput1" name="title">
   </div>
-
+  
   <div class="mb-3">
     <label for="exampleFormControlTextarea1" class="form-label">I would like...</label>
     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-    
   </div>
+
+  <div class="col-md-4">
+    <label for="input-state" class="form-label">State</label>
+    <select id="input-state" name="state" class="form-select">
+      <option selected>Choose...</option>
+      <% user.locations.forEach(location => { %>
+        <option selected><%= location.address %></option>
+      <% }) %>
+    </select>
+  </div>
+</form>
