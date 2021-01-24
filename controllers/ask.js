@@ -81,6 +81,14 @@ router.put('/edit/:id', (req, res) => {
     })  
 })
 
-router.delete('/delete/:id')
+router.delete('/delete/:id', (req, res) => {
+    db.request.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then(() => {
+        res.redirect('/request/search')
+    })
+})
 
 module.exports = router

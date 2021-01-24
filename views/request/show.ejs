@@ -12,5 +12,9 @@
     <a href="request/fill/<% currentUser.id %>" class="btn btn-primary">Fill Request</a>
     <% if (currentUser.id === request.user.id) { %>
         <a href="/request/edit/<%= request.id %>" class="btn btn-primary">Edit Request</a>
+
+        <form action="/request/delete/<%= request.id %>?_method=DELETE" method="POST">
+            <input type="submit" class="btn btn-danger" value="Delete Request">
+        </form>
     <% } %>
 </div>
