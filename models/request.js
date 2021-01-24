@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.request.belongsTo(models.user)
+      models.request.belongsTo(models.location)
     }
   };
   request.init({

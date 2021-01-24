@@ -12,12 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.offer.belongsTo(models.user)
+      models.offer.belongsTo(models.location)
     }
   };
   offer.init({
     userId: DataTypes.INTEGER,
-    title: DataTypes.TEXT,
     locationId: DataTypes.INTEGER,
+    title: DataTypes.TEXT,
     content: DataTypes.TEXT,
     recipelink: DataTypes.TEXT,
     claimed: DataTypes.INTEGER

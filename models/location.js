@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.location.hasMany(models.offer)
+      models.location.hasMany(models.request)
       models.location.belongsToMany(models.user, {through: 'userLocation'})
     }
   };

@@ -3,8 +3,7 @@
 
 <% requests.forEach(request => { %>
     <div class="well">
-        <h4><%= request.title %></h4>
-        <%= request.content %>
-        <%= request.location %>
+        <h4><%= request.title %> by <%= request.user.name %></h4>
+        <%= request.content %> at <%= request.location.address %>
     </div>
 <% }) %>

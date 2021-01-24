@@ -1,0 +1,13 @@
+<div class="container">
+    <h3><%= request.title %></h3>
+    <h6><%= request.author.name %></h6>
+
+    <h3><%= request.location %></h3>
+    <p><%= request.content %></p>
+        
+    <% if (request.recipelink) { %>
+        <a href='<% request.recipelink %>'>Recipe</a>
+    <% } %>
+      
+    <a href="request/fill/<% currentUser.id %>" class="btn btn-primary">Fill Request</a>
+</div>
