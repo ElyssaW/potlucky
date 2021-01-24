@@ -17,14 +17,17 @@ module.exports = {
       city: {
         type: Sequelize.STRING
       },
-      street: {
-        type: Sequelize.STRING
-      },
       address: {
         type: Sequelize.STRING
       },
       zipcode: {
         type: Sequelize.INTEGER
+      },
+      lat: {
+        type: Sequelize.DECIMAL(10,8)
+      },
+      long: {
+        type: Sequelize.DECIMAL(11,8)
       },
       createdAt: {
         allowNull: false,

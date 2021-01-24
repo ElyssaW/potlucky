@@ -7,6 +7,7 @@ const flash = require('connect-flash')
 const isLoggedIn = require('./middleware/isLoggedIn.js')
 const db = require('./models')
 const methodOverride = require('method-override')
+const axios = require('axios')
 
 // Instantiate express
 let app = express()
@@ -63,7 +64,22 @@ app.get('/', (req, res) => {
 
 // Profile route
 app.get('/profile/:id', isLoggedIn, (req, res) => {
+    axios.get()
     res.render('profile.ejs')
+})
+
+app.get('/test', (req, res) => {
+    let accessToken = process.env.API_KEY
+    let zip = 78259
+    let street = '22210 Midbury'
+    axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?types=postcode&access_token=${accessToken}`)
+    .then(response => {
+        console.log()
+        res.send(response.data.features[0].bbox)
+        axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${street}.json?types=address&access_token=${accessToken}`).then(response => {
+            res.send(response.data.features[0].center)
+        })
+    })
 })
 
 // app.get('*', (req, res) => {

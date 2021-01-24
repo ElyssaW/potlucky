@@ -1,4 +1,6 @@
 'use strict';
+const axios = require('axios')
+require('dotenv').config()
 const {
   Model
 } = require('sequelize');
@@ -20,12 +22,25 @@ module.exports = (sequelize, DataTypes) => {
     country: DataTypes.STRING,
     state: DataTypes.STRING,
     city: DataTypes.STRING,
-    street: DataTypes.STRING,
     address: DataTypes.STRING,
-    zipcode: DataTypes.INTEGER
+    zipcode: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    lat: DataTypes.DECIMAL(10,8),
+    long: DataTypes.DECIMAL(11,8),
   }, {
     sequelize,
     modelName: 'location',
   });
+
+  // user.addHook('beforeCreate', (pendingLocation, options) => {
+  //   let accessToken = process.env.API_KEY
+  //   axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${pendingLocation.zipcode}.json?types=postcode&access_token=${accessToken}`)
+  //   .then(response => {
+  //     console.log(response)
+  //   })
+  // })
+
   return location;
 };
