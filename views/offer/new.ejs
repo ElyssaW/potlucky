@@ -1,0 +1,29 @@
+<form action="/offer/new" method="POST">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Title</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" name="title">
+    </div>
+    
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">I'm thinking of making...</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="3"></textarea>
+    </div>
+  
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Recipe Link (Optional)</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" name="recipelink" rows="3"></textarea>
+    </div>
+  
+    <div class="col-md-4">
+      <label for="input-location" class="form-label">Location</label>
+      <select id="input-location" name="locationId" class="form-select">
+        <% currentUser.locations.forEach(location => { %>
+          <option value="<%= location.id %>" selected><%= location.address %></option>
+        <% }) %>
+      </select>
+  
+      <input type="hidden" value="<%= currentUser.id %>" name="userId">
+  
+      <input type="submit" class="btn btn-primary">
+    </div>
+  </form>

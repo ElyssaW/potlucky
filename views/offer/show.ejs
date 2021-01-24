@@ -1,0 +1,20 @@
+<div class="container">
+    <h3><%= offer.title %></h3>
+    <h6><%= offer.user.name %></h6>
+
+    <h3><%= offer.location.address %></h3>
+    <p><%= offer.content %></p>
+        
+    <% if (offer.recipelink) { %>
+        <a href='<% offer.recipelink %>'>Recipe</a>
+    <% } %>
+      
+    <a href="offer/fill/<% currentUser.id %>" class="btn btn-primary">Fill Offer</a>
+    <% if (currentUser.id === offer.user.id) { %>
+        <a href="/offer/edit/<%= offer.id %>" class="btn btn-primary">Edit Offer</a>
+
+        <form action="/offer/delete/<%= offer.id %>?_method=DELETE" method="POST">
+            <input type="submit" class="btn btn-danger" value="Delete Offer">
+        </form>
+    <% } %>
+</div>

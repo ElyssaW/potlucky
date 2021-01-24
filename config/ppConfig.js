@@ -31,9 +31,6 @@ passport.deserializeUser((id, doneCallback) => {
 // ------------------> STRATEGY SET UP <------------------ // 
 
 const findAndLogInUser = ((email, password, doneCallback) => {
-    console.log('Find user function')
-    console.log(email)
-    console.log(password)
     // tell passport how to check that our user is legit
     db.user.findOne({
         where: {
@@ -41,7 +38,6 @@ const findAndLogInUser = ((email, password, doneCallback) => {
         }
     })
     .then(async foundUser => {
-        console.log(foundUser)
         let match
         if (foundUser) {
             console.log('Comparing passwords')
