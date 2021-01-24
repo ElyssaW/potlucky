@@ -1,8 +1,8 @@
 <div class="container">
     <h3><%= request.title %></h3>
-    <h6><%= request.author.name %></h6>
+    <h6><%= request.user.name %></h6>
 
-    <h3><%= request.location %></h3>
+    <h3><%= request.location.address %></h3>
     <p><%= request.content %></p>
         
     <% if (request.recipelink) { %>
@@ -10,4 +10,7 @@
     <% } %>
       
     <a href="request/fill/<% currentUser.id %>" class="btn btn-primary">Fill Request</a>
+    <% if (currentUser.id === request.user.id) { %>
+        <a href="/request/edit/<%= request.id %>" class="btn btn-primary">Edit Request</a>
+    <% } %>
 </div>

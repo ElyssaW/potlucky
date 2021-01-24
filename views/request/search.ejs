@@ -1,9 +1,8 @@
 <a href="/request/new" class="btn btn-primary">Make New Request</a>
-<% console.log(currentUser) %>
 
 <% requests.forEach(request => { %>
     <div class="well">
-        <h4><%= request.title %> by <%= request.user.name %></h4>
+        <h4><a href="/request/show/<%= request.id %>"><%= request.title %> by <%= request.user.name %></a></h4>
         <%= request.content %> at <%= request.location.address %>
     </div>
 <% }) %>

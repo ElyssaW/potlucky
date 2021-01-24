@@ -6,6 +6,7 @@ const passport = require('./config/ppConfig.js')
 const flash = require('connect-flash')
 const isLoggedIn = require('./middleware/isLoggedIn.js')
 const db = require('./models')
+const methodOverride = require('method-override')
 
 // Instantiate express
 let app = express()
@@ -13,6 +14,9 @@ let app = express()
 // Set the view engine
 app.set('view engine', 'ejs')
 app.use(layout)
+
+// Method override middleware
+app.use(methodOverride('_method'))
 
 // Body parser
 app.use(express.urlencoded({ extended: false }))
