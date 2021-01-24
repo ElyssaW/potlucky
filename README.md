@@ -8,11 +8,12 @@ A "community kitchen" app that connects local cooks and bakers looking to make s
 - Postgres/Sequelize
 - EJS Layouts
 - Mapbox API
+- Mapbox GL JS plugin
 
 ### MVP
 
-- [ ] Basic CRUD functionality (Create/Read/Update/Delete offers and requests)
-- [ ] Database with tables for users, requests, and offers
+- [x] Basic CRUD functionality (Create/Read/Update/Delete offers and requests)
+- [x] Database with tables for users, requests, and offers
 - [ ] Geocoding API to find users in your area
 
 ### Stretch Goals
@@ -23,17 +24,17 @@ A "community kitchen" app that connects local cooks and bakers looking to make s
 
 ## ERD
 
-![ERD](images/ERD.png)
+![ERD](Public/images/ERD.png)
 
 ## Wireframes
 
-![Landing](images/LandingPage.png)
+![Landing](Public/images/LandingPage.png)
 
-![Request](images/RequestPage.png)
+![Request](Public/images/RequestPage.png)
 
-![Show](images/ShowPage.png)
+![Show](Public/images/ShowPage.png)
 
-![Profile](images/ProfilePage.png)
+![Profile](Public/images/ProfilePage.png)
 
 ### Roadblocks
 
