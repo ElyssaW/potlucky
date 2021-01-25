@@ -34,11 +34,25 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'location',
   });
 
-  // user.addHook('beforeCreate', (pendingLocation, options) => {
+  // location.addHook('beforeCreate', async (pendingLocation, options) => {
+  //   console.log('------------------------------------------')
+  //   console.log('Hit hook')
+  //   console.log('------------------------------------------')
   //   let accessToken = process.env.API_KEY
-  //   axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${pendingLocation.zipcode}.json?types=postcode&access_token=${accessToken}`)
+  //   let zip = pendingLocation.zipcode
+  //   let address = pendingLocation.address
+
+  //   axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?types=postcode&access_token=${accessToken}`)
   //   .then(response => {
-  //     console.log(response)
+  //     console.log('Pending bbox')
+  //     let bbox = response.data.features[0].bbox
+
+  //     axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?bbox=${bbox[0]},${bbox[1]},${bbox[2]},${bbox[3]}&types=address&access_token=${accessToken}`).then(response => {
+
+  //       console.log('Pending location')
+  //       pendingLocation.lat = response.data.features[0].center[0]
+  //       pendingLocation.long = pendingLocation.lat = response.data.features[0].center[1]
+  //     })
   //   })
   // })
 

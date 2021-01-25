@@ -7,6 +7,8 @@ let router = express.Router()
 
 const passport = require('../config/ppConfig.js')
 
+const axios = require('axios')
+
 // Signup route
 router.get('/signup', (req, res) => {
     res.render('auth/signup.ejs')
@@ -29,21 +31,40 @@ router.post('/signup', (req, res) => {
     })
     .then(([user, wasCreated])=>{
         if(wasCreated){
-            db.location.findOrCreate({
-                where: {
-                    city: req.body.city,
-                    address: req.body.address,
-                    zipcode: req.body.zipcode,
-                    state: req.body.state,
-                    country: 'US'
-                }
-            }).then(([location, wasCreated]) => {
-                user.addLocation(location).then(() => {
-                    user.getLocations().then(locations => {
-                        passport.authenticate('local', {
-                            successRedirect: '/',
-                            successFlash: 'Account created and user logged in!'
-                        })(req, res)
+            let accessToken = process.env.API_KEY
+            let zip = req.body.zipcode
+            let address = req.body.address
+
+            axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?types=postcode&access_token=${accessToken}`)
+            .then(response => {
+                console.log('Pending bbox')
+                let bbox = response.data.features[0].bbox
+
+                axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?bbox=${bbox[0]},${bbox[1]},${bbox[2]},${bbox[3]}&types=address&access_token=${accessToken}`).then(response => {
+
+                    console.log('Pending location')
+                    let lat = response.data.features[0].center[0]
+                    let long = response.data.features[0].center[1]
+
+                    db.location.findOrCreate({
+                        where: {
+                            city: req.body.city,
+                            address: req.body.address,
+                            zipcode: req.body.zipcode,
+                            state: req.body.state,
+                            lat: lat,
+                            long: long,
+                            country: 'US'
+                        }
+                    }).then(([location, wasCreated]) => {
+                        user.addLocation(location).then(() => {
+                            user.getLocations().then(locations => {
+                                passport.authenticate('local', {
+                                    successRedirect: '/',
+                                    successFlash: 'Account created and user logged in!'
+                                })(req, res)
+                            })
+                        })
                     })
                 })
             })

@@ -74,10 +74,9 @@ app.get('/test', (req, res) => {
     let street = '22210 Midbury'
     axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?types=postcode&access_token=${accessToken}`)
     .then(response => {
-        console.log()
-        res.send(response.data.features[0].bbox)
-        axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${street}.json?types=address&access_token=${accessToken}`).then(response => {
-            res.send(response.data.features[0].center)
+        let bbox = response.data.features[0].bbox
+        axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${street}.json?bbox=${bbox[0]},${bbox[1]},${bbox[2]},${bbox[3]}&types=address&access_token=${accessToken}`).then(response => {
+            res.send(response.data)
         })
     })
 })
