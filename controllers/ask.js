@@ -30,13 +30,18 @@ router.post('/new', (req, res) => {
 })
 
 router.get('/search', (req, res) => {
-    console.log(res.locals.currentUser.locations[0].lat)
-    console.log(res.locals.currentUser.locations[0].long)
-    let accessToken = process.env.API_KEY
-    let lat = res.locals.currentUser.locations[0].lat
-    let long = res.locals.currentUser.locations[0].long
+    let lat
+    let long
+
+    if (res.locals.currentUser) {
+        lat = res.locals.currentUser.locations[0].lat
+        long = res.locals.currentUser.locations[0].long
+    } else {
+        lat = -98.4936
+        long = 29.4241
+    }
+
     let bbox = [lat-1, long-1, parseFloat(lat)+1, parseFloat(long)+1]
-    console.log(bbox)
 
     db.request.findAll({
         where: {
@@ -54,8 +59,9 @@ router.get('/search', (req, res) => {
     },
         include: [db.user, db.location]
     }).then(requests => {
-        console.log(requests)
-        res.render('request/search.ejs', {requests: requests})
+        res.render('request/search.ejs', {loc: {lat:lat, long:long}, 
+                                            requests: requests, 
+                                            apiKey: process.env.API_KEY})
     })
 })
 

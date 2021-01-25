@@ -14,7 +14,7 @@ A "community kitchen" app that connects local cooks and bakers looking to make s
 
 - [x] Basic CRUD functionality (Create/Read/Update/Delete offers and requests)
 - [x] Database with tables for users, requests, and offers
-- [ ] Geocoding API to find users in your area
+- [x] Geocoding API to find users in your area
 
 ### Stretch Goals
 

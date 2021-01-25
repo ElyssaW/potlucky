@@ -14,6 +14,12 @@ router.get('/signup', (req, res) => {
     res.render('auth/signup.ejs')
 })
 
+//Confirm signup, to ensure the user has selected their address
+router.get('/signup/confirm', (req, res) => {
+    let apiKey = process.env.API_KEY
+    res.render('auth/signupConfirm.ejs', {apiKey: apiKey, loc: { lat:-98.43340300, long:29.65028000}})
+})
+
 // Post signup
 router.post('/signup', (req, res) => {
     db.user.findOrCreate({
