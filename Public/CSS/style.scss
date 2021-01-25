@@ -6,7 +6,15 @@ body {
     background-color: $test-color;
 }
 
+.map-container {
+    z-index: 9;
+    height: 100%;
+    width: 100%;
+    padding: 30px;
+}
+
 .map-full{
+    position: relative;
     margin: 0;
     padding: 0;
     width: 100vw;
@@ -14,31 +22,45 @@ body {
 }
 
 .map-sidebar{
-    margin: 10px;
+    margin: 0;
     padding: 0;
-    width: 40vw;
-    height: 80vh;
-    border-top-right-radius: $corner-radius;
-    border-bottom-right-radius: $corner-radius;
+    width: 100%;
+    height: 100%;
 }
 
-.map-container {
-    // display: flex;
+.listings {
+    background-color: white;
+    height: 80vh;
+}
+
+.list-sidebar {
+    height: 80vh;
+    width: 500px;
+    padding: 0;
 }
 
 .request-card {
+    a {
+        text-decoration: none;
+        color: black;
+    }
     margin: 10px;
     background-color: #F9AD6A;
     padding: 15px;
-    border-top-left-radius: $corner-radius;
-    border-bottom-left-radius: $corner-radius;
-    width: 40vw;
+    width: 90%;
+    height: 100px;
+    transition: 1s;
+}
+
+.request-card:hover {
+    height: 110px;
+    background-color: $test-color;
 }
 
 @mixin midbar {
     background-repeat: repeat;
     width: 100%;
-    height: 90vh;
+    height: 92vh;
 }
 
 .midbar-lemon {
@@ -94,14 +116,16 @@ body {
     width: 35vw;
 }
 
-.nav-logo{
-    width: 70px
-}
-
-.nav-title{
-    font-family: $title-font;
-    font-size: 30px;
-    padding: 18px;
+.nav-bar {
+    .nav-logo{
+        width: 70px
+    }
+    
+    .nav-title{
+        font-family: $title-font;
+        font-size: 30px;
+        padding: 18px;
+    }
 }
 
 .midbar-rolls {

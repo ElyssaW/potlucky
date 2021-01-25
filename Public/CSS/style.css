@@ -2,7 +2,15 @@ body {
   background-color: #f9E07F;
 }
 
+.map-container {
+  z-index: 9;
+  height: 100%;
+  width: 100%;
+  padding: 30px;
+}
+
 .map-full {
+  position: relative;
   margin: 0;
   padding: 0;
   width: 100vw;
@@ -10,27 +18,47 @@ body {
 }
 
 .map-sidebar {
-  margin: 10px;
+  margin: 0;
   padding: 0;
-  width: 40vw;
+  width: 100%;
+  height: 100%;
+}
+
+.listings {
+  background-color: white;
   height: 80vh;
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
+}
+
+.list-sidebar {
+  height: 80vh;
+  width: 500px;
+  padding: 0;
 }
 
 .request-card {
   margin: 10px;
   background-color: #F9AD6A;
   padding: 15px;
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
-  width: 40vw;
+  width: 90%;
+  height: 100px;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.request-card a {
+  text-decoration: none;
+  color: black;
+}
+
+.request-card:hover {
+  height: 110px;
+  background-color: #f9E07F;
 }
 
 .midbar-lemon {
   background-repeat: repeat;
   width: 100%;
-  height: 90vh;
+  height: 92vh;
   background-size: 500px;
   background-image: url("/Images/lemons.jpg");
   display: -webkit-box;
@@ -85,11 +113,11 @@ body {
   width: 35vw;
 }
 
-.nav-logo {
+.nav-bar .nav-logo {
   width: 70px;
 }
 
-.nav-title {
+.nav-bar .nav-title {
   font-family: "Luckiest Guy", cursive;
   font-size: 30px;
   padding: 18px;
@@ -98,7 +126,7 @@ body {
 .midbar-rolls {
   background-repeat: repeat;
   width: 100%;
-  height: 90vh;
+  height: 92vh;
   background-size: 100%;
   background-image: url("/Images/rolls.jpg");
   display: -webkit-box;

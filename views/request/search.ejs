@@ -1,16 +1,30 @@
 
     <div class="container map-container">
-        <div>
-            <% requests.forEach(request => { %>
-                <div class="well request-card col-md-2">
-                    <h4><a href="/request/show/<%= request.id %>"><%= request.title %> by <%= request.user.name %></a></h4>
-                    <%= request.content %> at <%= request.location.address %>
+        <div class="row align-items-start">
+            <div class="col listings container">
+                <div class="row justify-content-center">
+                    <div class="col">
+                        <h1>Requests <a href="/request/new" class="btn btn-primary">Make New Request</a></h1>
+                    </div>
+                    
+                    <div class="col">
+                        <h1>Offers <a href="/offer/new" class="btn btn-primary">Make New Request</a></h1>
+                    </div>
                 </div>
-            <% }) %>
-            <a href="/request/new" class="btn btn-primary">Make New Request</a>
-        </div>
-    
-        <div class="map-sidebar col-md-2" id="map"></div>
+
+                <% requests.forEach(request => { %>
+                    <div class="well request-card" style="margin: 10px;">
+                        <h4><a href="/request/show/<%= request.id %>"><%= request.title %> by <%= request.user.name %></a></h4>
+                        <%= request.content %> at <%= request.location.address %>
+                    </div>
+                <% }) %> 
+
+            </div>
+            <div class="col-md-4 list-sidebar">
+                <div class="map-sidebar" id="map"></div>
+            </div>
+          </div>
+
     </div>
 
     <script>
@@ -26,4 +40,5 @@
         let marker = new mapboxgl.Marker()
             .setLngLat([<%= loc.lat %>, <%= loc.long %>])
             .addTo(map)
+
     </script>
