@@ -65,7 +65,6 @@ app.get('/', (req, res) => {
 
 // Profile route
 app.get('/profile/:id', isLoggedIn, (req, res) => {
-    axios.get()
     res.render('profile.ejs')
 })
 

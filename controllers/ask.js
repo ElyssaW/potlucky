@@ -1,4 +1,5 @@
 const { request } = require('express')
+const { Op } = require("sequelize")
 const express = require('express')
 let router = express.Router()
 const isLoggedIn = require('../middleware/isLoggedIn.js')
@@ -39,18 +40,20 @@ router.get('/search', (req, res) => {
 
     db.request.findAll({
         where: {
-            '$location.id$':2
-        },
+            [Op.and]: [
+            {
+                '$location.lat$': {
+                    [Op.between]: [bbox[0], bbox[2]]
+                }
+            }, {
+                '$location.long$': {
+                    [Op.between]: [bbox[1], bbox[3]]
+                }
+            }
+        ]
+    },
         include: [db.user, db.location]
     }).then(requests => {
-        // let results = []
-        // requests.forEach(request => {
-        //     if (request.location.lat > -99) {
-        //             results.push(request)
-        //         }
-        // })
-        // console.log(requests)
-        // console.log(results)
         console.log(requests)
         res.render('request/search.ejs', {requests: requests})
     })
