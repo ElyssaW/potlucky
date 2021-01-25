@@ -29,9 +29,29 @@ router.post('/new', (req, res) => {
 })
 
 router.get('/search', (req, res) => {
+    console.log(res.locals.currentUser.locations[0].lat)
+    console.log(res.locals.currentUser.locations[0].long)
+    let accessToken = process.env.API_KEY
+    let lat = res.locals.currentUser.locations[0].lat
+    let long = res.locals.currentUser.locations[0].long
+    let bbox = [lat-1, long-1, parseFloat(lat)+1, parseFloat(long)+1]
+    console.log(bbox)
+
     db.request.findAll({
+        where: {
+            '$location.id$':2
+        },
         include: [db.user, db.location]
     }).then(requests => {
+        // let results = []
+        // requests.forEach(request => {
+        //     if (request.location.lat > -99) {
+        //             results.push(request)
+        //         }
+        // })
+        // console.log(requests)
+        // console.log(results)
+        console.log(requests)
         res.render('request/search.ejs', {requests: requests})
     })
 })

@@ -43,6 +43,7 @@ app.use(flash())
 // CUSTOM MIDDLEWARE
 app.use((req, res, next) => {
     res.locals.alerts = req.flash()
+    console.log('middleware')
     if(req.user) {
         res.locals.currentUser = req.user
         next() // move onto the next piece
