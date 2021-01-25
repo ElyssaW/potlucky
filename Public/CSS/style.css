@@ -33,6 +33,66 @@ body {
   height: 90vh;
   background-size: 500px;
   background-image: url("/Images/lemons.jpg");
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  padding: 20px;
+}
+
+.login-form {
+  padding: 20px;
+  border: black solid 10px;
+  background-color: #f9E07F;
+  width: 25vw;
+  height: 500px;
+}
+
+.login-form .login-title {
+  font-family: "Luckiest Guy", cursive;
+}
+
+.login-form .login-label {
+  font-weight: bold;
+}
+
+.login-form .field-login {
+  width: 90%;
+  padding: 10px;
+  margin: 5px 0;
+  border: none;
+}
+
+.login-form .login-submit {
+  font-weight: bold;
+  margin: 0;
+  width: 90%;
+  background-color: white;
+  padding: 15px;
+  border: none;
+  border-bottom-right-radius: 25px;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.login-form .login-submit:hover {
+  background-color: yellow;
+  border-radius: 0px;
+}
+
+.signup-form {
+  width: 35vw;
+}
+
+.nav-logo {
+  width: 70px;
+}
+
+.nav-title {
+  font-family: "Luckiest Guy", cursive;
+  font-size: 30px;
+  padding: 18px;
 }
 
 .midbar-rolls {
@@ -50,7 +110,7 @@ body {
 }
 
 .title-div .home-title {
-  font-family: 'Luckiest Guy', cursive;
+  font-family: "Luckiest Guy", cursive;
   font-size: 150px;
   color: white;
   margin: 0;

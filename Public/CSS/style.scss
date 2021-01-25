@@ -1,5 +1,6 @@
 $test-color: #f9E07F;
 $corner-radius: 25px;
+$title-font: 'Luckiest Guy', cursive;
 
 body {
     background-color: $test-color;
@@ -44,6 +45,63 @@ body {
     @include midbar();
     background-size: 500px;
     background-image: url('/Images/lemons.jpg');
+    display: flex;
+    align-content: center;
+    padding: 20px;
+}
+
+.login-form {
+    padding: 20px;
+    border: black solid 10px;
+
+    .login-title {
+        font-family: $title-font;
+    }
+
+    .login-label {
+        font-weight: bold;
+    }
+
+    .field-login {
+        width: 90%;
+        padding: 10px;
+        margin: 5px 0;
+        border: none;
+    }
+
+    .login-submit {
+        font-weight: bold;
+        margin: 0;
+        width: 90%;
+        background-color: white;
+        padding: 15px;
+        border: none;
+        border-bottom-right-radius: $corner-radius;
+        transition: 1s;
+    }
+
+    .login-submit:hover {
+        background-color: yellow;
+        border-radius: 0px;
+    }
+
+    background-color: $test-color;
+    width: 25vw;
+    height: 500px;
+}
+
+.signup-form{
+    width: 35vw;
+}
+
+.nav-logo{
+    width: 70px
+}
+
+.nav-title{
+    font-family: $title-font;
+    font-size: 30px;
+    padding: 18px;
 }
 
 .midbar-rolls {
@@ -58,7 +116,7 @@ body {
 .title-div{
 
     .home-title {
-        font-family: 'Luckiest Guy', cursive;
+        font-family: $title-font;
         font-size: 150px;
         color: white;
         margin: 0;

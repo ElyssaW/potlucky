@@ -1,9 +1,19 @@
-<form action="/auth/login" method="POST">
-    <label for="email">Email</label>
-    <input type="email" name="email" placeholder="email">
+<div class="midbar-lemon">
+    <div class="container login-form">
+        <h1 class='login-title'>Login!</h1>
+        <form action="/auth/login" method="POST" class="login-form">
+        
+            <div class="form-floating mb-3 col-md-11">
+                <input type="email" class="form-control" id="floatingInput" name="email" placeholder="00000">
+                <label for="floatingInput">Email</label>
+            </div>
+            
+            <div class="form-floating mb-3 col-md-11">
+                <input type="password" class="form-control" id="floatingInput" name="password" placeholder="00000">
+                <label for="floatingInput">Password</label>
+            </div>
 
-    <label for="password">Password</label>
-    <input type="password" name="password" placeholder="password">
-
-    <input type="submit">
-</form>
+            <input class="login-submit" type="submit">
+        </form>
+    </div>
+</div>
