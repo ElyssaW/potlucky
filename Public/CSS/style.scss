@@ -1,5 +1,119 @@
-$test-color: aqua;
+$test-color: #f9E07F;
+$corner-radius: 25px;
 
 body {
     background-color: $test-color;
+}
+
+.map-full{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.map-sidebar{
+    margin: 10px;
+    padding: 0;
+    width: 40vw;
+    height: 80vh;
+    border-top-right-radius: $corner-radius;
+    border-bottom-right-radius: $corner-radius;
+}
+
+.map-container {
+    // display: flex;
+}
+
+.request-card {
+    margin: 10px;
+    background-color: #F9AD6A;
+    padding: 15px;
+    border-top-left-radius: $corner-radius;
+    border-bottom-left-radius: $corner-radius;
+    width: 40vw;
+}
+
+@mixin midbar {
+    background-repeat: repeat;
+    width: 100%;
+    height: 90vh;
+}
+
+.midbar-lemon {
+    @include midbar();
+    background-size: 500px;
+    background-image: url('/Images/lemons.jpg');
+}
+
+.midbar-rolls {
+    @include midbar();
+    background-size: 100%;
+    background-image: url('/Images/rolls.jpg');
+
+    display: flex;
+    align-items: center;
+}
+
+.title-div{
+
+    .home-title {
+        font-family: 'Luckiest Guy', cursive;
+        font-size: 150px;
+        color: white;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .subhead {
+        position: relative;
+        top: -30px;
+        margin: 0;
+        padding: 0;
+        color: #F9AD6A;
+    }
+}
+
+.title-card-div{
+    display: flex;
+    justify-content: space-between;
+
+    .title-card {
+        width: 30%;
+        background-color: #D46C4E;
+        border-radius: $corner-radius;
+        padding: 30px;
+    }
+
+    margin-bottom: 50px;
+}
+
+.home-form {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+
+    .signup-btn {
+        padding: 20px;
+        background-color: #264d59;
+        width: 50%;
+        font-size: 30px;
+        border-radius: $corner-radius;
+        color: white;
+    }
+}
+
+.footer {
+    background-color: #264d59;
+    height: 50vh;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    padding-left: 10%;
+    color: white;
+
+    .footer-list {
+        list-style-type: none;
+        padding: 0;
+    }
 }

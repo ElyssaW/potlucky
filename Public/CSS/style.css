@@ -1,4 +1,125 @@
 body {
-  background-color: aqua;
+  background-color: #f9E07F;
+}
+
+.map-full {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.map-sidebar {
+  margin: 10px;
+  padding: 0;
+  width: 40vw;
+  height: 80vh;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.request-card {
+  margin: 10px;
+  background-color: #F9AD6A;
+  padding: 15px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  width: 40vw;
+}
+
+.midbar-lemon {
+  background-repeat: repeat;
+  width: 100%;
+  height: 90vh;
+  background-size: 500px;
+  background-image: url("/Images/lemons.jpg");
+}
+
+.midbar-rolls {
+  background-repeat: repeat;
+  width: 100%;
+  height: 90vh;
+  background-size: 100%;
+  background-image: url("/Images/rolls.jpg");
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.title-div .home-title {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 150px;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.title-div .subhead {
+  position: relative;
+  top: -30px;
+  margin: 0;
+  padding: 0;
+  color: #F9AD6A;
+}
+
+.title-card-div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.title-card-div .title-card {
+  width: 30%;
+  background-color: #D46C4E;
+  border-radius: 25px;
+  padding: 30px;
+}
+
+.home-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 50px;
+}
+
+.home-form .signup-btn {
+  padding: 20px;
+  background-color: #264d59;
+  width: 50%;
+  font-size: 30px;
+  border-radius: 25px;
+  color: white;
+}
+
+.footer {
+  background-color: #264d59;
+  height: 50vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-left: 10%;
+  color: white;
+}
+
+.footer .footer-list {
+  list-style-type: none;
+  padding: 0;
 }
 /*# sourceMappingURL=style.css.map */

@@ -9,6 +9,7 @@ A "community kitchen" app that connects local cooks and bakers looking to make s
 - EJS Layouts
 - Mapbox API
 - Mapbox GL JS plugin
+- SCSS
 
 ### MVP
 

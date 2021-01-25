@@ -1,32 +1,17 @@
-<script src='https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css' rel='stylesheet' />
-<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js'></script>
-<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css' type='text/css' />
 
-<style>
-    body {
-    margin: 0;
-    padding: 0;
-    }
-
-    #map {
-    top: 0;
-    bottom: 0;
-    width: 600px;
-    height: 600px;
-    }
-</style>
-
-<a href="/request/new" class="btn btn-primary">Make New Request</a>
-
-<div id="map"></div>
-
-    <% requests.forEach(request => { %>
-        <div class="well">
-            <h4><a href="/request/show/<%= request.id %>"><%= request.title %> by <%= request.user.name %></a></h4>
-            <%= request.content %> at <%= request.location.address %>
+    <div class="container map-container">
+        <div>
+            <% requests.forEach(request => { %>
+                <div class="well request-card col-md-2">
+                    <h4><a href="/request/show/<%= request.id %>"><%= request.title %> by <%= request.user.name %></a></h4>
+                    <%= request.content %> at <%= request.location.address %>
+                </div>
+            <% }) %>
+            <a href="/request/new" class="btn btn-primary">Make New Request</a>
         </div>
-    <% }) %>
+    
+        <div class="map-sidebar col-md-2" id="map"></div>
+    </div>
 
     <script>
         mapboxgl.accessToken = '<%= apiKey %>'
