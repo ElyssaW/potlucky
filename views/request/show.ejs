@@ -1,20 +1,54 @@
+<style>
+    #map {
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+</style>
+
 <div class="container">
-    <h3><%= request.title %></h3>
-    <h6><%= request.user.name %></h6>
+    <div class="row">
+        <div class="col-md-6">
+            <div id="map"></div>
+        </div>
 
-    <h3><%= request.location.address %></h3>
-    <p><%= request.content %></p>
+        <div class="col-md-6">
+            <h3><%= request.title %></h3>
+            <h6><%= request.user.name %></h6>
         
-    <% if (request.recipelink) { %>
-        <a href='<% request.recipelink %>'>Recipe</a>
-    <% } %>
-      
-    <a href="request/fill/<% currentUser.id %>" class="btn btn-primary">Fill Request</a>
-    <% if (currentUser.id === request.user.id) { %>
-        <a href="/request/edit/<%= request.id %>" class="btn btn-primary">Edit Request</a>
-
-        <form action="/request/delete/<%= request.id %>?_method=DELETE" method="POST">
-            <input type="submit" class="btn btn-danger" value="Delete Request">
-        </form>
-    <% } %>
+            <h3><%= request.location.address %></h3>
+            <p><%= request.content %></p>
+                
+            <% if (request.recipelink) { %>
+                <a href='<% request.recipelink %>'>Recipe</a>
+            <% } %>
+              
+            <a href="request/fill/<% currentUser.id %>" class="btn btn-primary">Fill Request</a>
+            <% if (currentUser.id === request.user.id) { %>
+                <a href="/request/edit/<%= request.id %>" class="btn btn-primary">Edit Request</a>
+        
+                <form action="/request/delete/<%= request.id %>?_method=DELETE" method="POST">
+                    <input type="submit" class="btn btn-danger" value="Delete Request">
+                </form>
+            <% } %>
+        </div>
+    </div>
 </div>
+
+<script>
+    mapboxgl.accessToken = '<%= apiKey %>'
+
+    let map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [<%= loc.lat %>, <%= loc.long %>],
+        zoom: 12,
+    })
+
+    let marker = new mapboxgl.Marker()
+        .setLngLat([<%= loc.lat %>, <%= loc.long %>])
+        .addTo(map)
+
+</script>

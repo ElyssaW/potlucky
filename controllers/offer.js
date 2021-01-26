@@ -2,6 +2,8 @@ const express = require('express')
 let router = express.Router()
 const isLoggedIn = require('../middleware/isLoggedIn.js')
 const db = require('../models/index.js')
+const { Op } = require("sequelize")
+const { off } = require('process')
 
 router.get('/new', isLoggedIn, (req, res) => {
     res.render('offer/new.ejs')
@@ -28,10 +30,57 @@ router.post('/new', (req, res) => {
 })
 
 router.get('/search', (req, res) => {
+    let lat
+    let long
+
+    if (res.locals.currentUser) {
+        lat = res.locals.currentUser.locations[0].lat
+        long = res.locals.currentUser.locations[0].long
+    } else {
+        lat = -98.4936
+        long = 29.4241
+    }
+
+    let bbox = [lat-1, long-1, parseFloat(lat)+1, parseFloat(long)+1]
+
     db.offer.findAll({
+        where: {
+            [Op.and]: [
+            {
+                '$location.lat$': {
+                    [Op.between]: [bbox[0], bbox[2]]
+                }
+            }, {
+                '$location.long$': {
+                    [Op.between]: [bbox[1], bbox[3]]
+                }
+            }
+        ]
+    },
         include: [db.user, db.location]
     }).then(offers => {
-        res.render('offer/search.ejs', {offers: offers})
+        let geojson = {
+            type: 'FeatureCollection',
+        }
+
+        geojson.features = offers.map(offer => {
+            return {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [parseFloat(offer.location.lat), parseFloat(offer.location.long)]
+                },
+                properties: {
+                    title: 'Mapbox',
+                    description: offer.content
+                }
+            }
+        })
+
+        res.render('offer/search.ejs', {offers: offers, 
+                                        loc: {lat:lat, long:long},
+                                        apiKey: process.env.API_KEY,
+                                        geojson: geojson})
     })
 })
 

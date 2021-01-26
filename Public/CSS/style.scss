@@ -6,22 +6,29 @@ body {
     background-color: $test-color;
 }
 
+a {
+    color: black;
+    text-decoration: none;
+}
+
 .map-container {
     z-index: 9;
-    height: 100%;
-    width: 100%;
     padding: 30px;
 }
 
 .map-full{
-    position: relative;
+    z-index: -1;
+    position: absolute;
     margin: 0;
     padding: 0;
+    left: 0;
+    top: 0;
     width: 100vw;
     height: 100vh;
 }
 
 .map-sidebar{
+    float: right;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -30,7 +37,7 @@ body {
 
 .listings {
     background-color: white;
-    height: 80vh;
+    height: 100%;
 }
 
 .list-sidebar {
@@ -41,7 +48,6 @@ body {
 
 .request-card {
     a {
-        text-decoration: none;
         color: black;
     }
     margin: 10px;
@@ -116,16 +122,14 @@ body {
     width: 35vw;
 }
 
-.nav-bar {
-    .nav-logo{
-        width: 70px
-    }
-    
-    .nav-title{
-        font-family: $title-font;
-        font-size: 30px;
-        padding: 18px;
-    }
+.nav-logo{
+    width: 70px
+}
+
+.nav-title{
+    font-family: $title-font;
+    font-size: 30px;
+    padding: 18px;
 }
 
 .midbar-rolls {
@@ -165,6 +169,11 @@ body {
         background-color: #D46C4E;
         border-radius: $corner-radius;
         padding: 30px;
+        transition: 1s;
+    }
+
+    .title-card:hover {
+        border-radius: 0;
     }
 
     margin-bottom: 50px;
@@ -179,9 +188,18 @@ body {
         padding: 20px;
         background-color: #264d59;
         width: 50%;
+        border: none;
         font-size: 30px;
         border-radius: $corner-radius;
         color: white;
+        transition: 1s;
+    }
+
+    .signup-btn:hover {
+        background-color: white;
+        border: none;
+        color: black;
+        border-radius: 0;
     }
 }
 

@@ -1,8 +1,88 @@
-<a href="/offer/new" class="btn btn-primary">Make New Offer</a>
+<style>
+    #map {
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
 
-<% offers.forEach(offer => { %>
-    <div class="well">
-        <h4><a href="/offer/show/<%= offer.id %>"><%= offer.title %> by <%= offer.user.name %></a></h4>
-        <%= offer.content %> at <%= offer.location.address %>
+    .col-one {
+        background-color: white;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+    }
+
+    .col-two {
+        padding: 0;
+    }
+
+    .row-one {
+        margin: 2vh;
+        height: 80vh;
+        background-color: black;
+        border-bottom-right-radius: 15px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        border-bottom-left-radius: 15px;
+        border-bottom: black solid 15px;
+    }
+
+    .well {
+        background-color: #F9AD6A;
+        margin: 10px 0;
+        display: flex;
+        transition: 1s;
+    }
+
+    .well:hover {
+        border-top-width: 10px;
+    }
+
+    .title {
+        text-align: center;
+        padding-left: 20px;
+    }
+</style>
+
+<div class="container">
+    <div class="row row-one">
+        <div class="col-md-6 col-one">
+
+            <span class="title">
+                <h1>REQUESTS <a href="/offer/new" class="btn btn-primary">Make New Request</a></h1>
+            </span>
+            
+            <% offers.forEach(offer => { %>
+                <div class="well">
+                    <div class="profile">
+                        <img src="/Images/avatars/pom.jpg" height="80px" width="80px" alt="Avatar">
+                    </div>
+
+                    <h4><a href="/offer/show/<%= offer.id %>"><%= offer.title %> by <%= offer.user.name %></a></h4>
+                    <%= offer.content %> at <%= offer.location.address %>
+                </div>
+            <% }) %>
+        </div>
+
+        <div class="col-md-6 col-two">
+            <div id="map"></div>
+        </div>
     </div>
-<% }) %>
+</div>
+
+<script>
+    mapboxgl.accessToken = '<%= apiKey %>'
+
+    let map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [<%= loc.lat %>, <%= loc.long %>],
+        zoom: 12,
+    })
+
+    let marker = new mapboxgl.Marker()
+        .setLngLat([<%= loc.lat %>, <%= loc.long %>])
+        .addTo(map)
+
+</script>

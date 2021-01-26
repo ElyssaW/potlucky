@@ -2,22 +2,29 @@ body {
   background-color: #f9E07F;
 }
 
+a {
+  color: black;
+  text-decoration: none;
+}
+
 .map-container {
   z-index: 9;
-  height: 100%;
-  width: 100%;
   padding: 30px;
 }
 
 .map-full {
-  position: relative;
+  z-index: -1;
+  position: absolute;
   margin: 0;
   padding: 0;
+  left: 0;
+  top: 0;
   width: 100vw;
   height: 100vh;
 }
 
 .map-sidebar {
+  float: right;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -26,7 +33,7 @@ body {
 
 .listings {
   background-color: white;
-  height: 80vh;
+  height: 100%;
 }
 
 .list-sidebar {
@@ -46,7 +53,6 @@ body {
 }
 
 .request-card a {
-  text-decoration: none;
   color: black;
 }
 
@@ -113,11 +119,11 @@ body {
   width: 35vw;
 }
 
-.nav-bar .nav-logo {
+.nav-logo {
   width: 70px;
 }
 
-.nav-bar .nav-title {
+.nav-title {
   font-family: "Luckiest Guy", cursive;
   font-size: 30px;
   padding: 18px;
@@ -168,6 +174,12 @@ body {
   background-color: #D46C4E;
   border-radius: 25px;
   padding: 30px;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.title-card-div .title-card:hover {
+  border-radius: 0;
 }
 
 .home-form {
@@ -184,9 +196,19 @@ body {
   padding: 20px;
   background-color: #264d59;
   width: 50%;
+  border: none;
   font-size: 30px;
   border-radius: 25px;
   color: white;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.home-form .signup-btn:hover {
+  background-color: white;
+  border: none;
+  color: black;
+  border-radius: 0;
 }
 
 .footer {
