@@ -59,6 +59,7 @@ router.get('/search', (req, res) => {
     },
         include: [db.user, db.location]
     }).then(requests => {
+
         res.render('request/search.ejs', {loc: {lat:lat, long:long}, 
                                             requests: requests, 
                                             apiKey: process.env.API_KEY})
@@ -67,7 +68,7 @@ router.get('/search', (req, res) => {
 
 router.get('/show/:id', (req, res) => {
     db.request.findByPk(req.params.id, {include: [db.user, db.location]}).then(request => {
-        res.render('request/show.ejs', {request:request})
+        res.render('request/show.ejs', {request:request, apiKey: process.env.API_KEY})
     })
 })
 

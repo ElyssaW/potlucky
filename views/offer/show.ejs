@@ -1,20 +1,114 @@
+<style>
+    #map {
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+    }
+
+    .col-one {
+        padding: 0;
+        min-height: 400px;
+        min-width: 400px;
+        background-color: white;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+    }
+
+    .col-two {
+        padding: 0;
+        background-image: url('/Images/lemons.jpg');
+        background-size: 300px;
+        background-repeat: repeat;
+        padding: 30px;
+    }
+
+    .row-one {
+        margin: 2vh;
+        height: 80vh;
+        background-color: black;
+        border-bottom-right-radius: 15px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        border-bottom-left-radius: 15px;
+        border-bottom: black solid 15px;
+    }
+
+    .well {
+        background-color: white;
+        border-bottom-right-radius: 15px;
+        padding: 10px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .title {
+        text-align: center;
+        padding-left: 20px;
+    }
+
+    .foodpic {
+        border-top-right-radius: 15px;
+        border-top-left-radius: 15px;
+    }
+
+</style>
+
 <div class="container">
-    <h3><%= offer.title %></h3>
-    <h6><%= offer.user.name %></h6>
+    <div class="row row-one">
+        <div class="col-md-6 col-one">
+            <div id="map"></div>
+        </div>
 
-    <h3><%= offer.location.address %></h3>
-    <p><%= offer.content %></p>
-        
-    <% if (offer.recipelink) { %>
-        <a href='<% offer.recipelink %>'>Recipe</a>
-    <% } %>
-      
-    <a href="offer/fill/<% currentUser.id %>" class="btn btn-primary">Fill Offer</a>
-    <% if (currentUser.id === offer.user.id) { %>
-        <a href="/offer/edit/<%= offer.id %>" class="btn btn-primary">Edit Offer</a>
+        <div class="col-md-6 col-two">
+            <div class="well">
+                <div class="row row-card">
+                    <img class="foodpic" src="https://scx2.b-cdn.net/gfx/news/hires/2016/howcuttingdo.jpg">
+                </div>
 
-        <form action="/offer/delete/<%= offer.id %>?_method=DELETE" method="POST">
-            <input type="submit" class="btn btn-danger" value="Delete Offer">
-        </form>
-    <% } %>
+                <div class="row row-text">
+                    <div>
+                        <h3 style="display: inline;"><%= offer.title %></h3> by <h6 style="display: inline;"><%= offer.user.name %></h6>
+                    </div>
+                
+                    <h3><%= offer.location.address %></h3>
+                    <p><%= offer.content %></p>
+                        
+                    <% if (offer.recipelink) { %>
+                        <a href='<% offer.recipelink %>'>Recipe</a>
+                    <% } %>
+                    
+                    <div class="btn-banl" style="display: flex; justify-content: space-between;">
+                        <% if (currentUser) { %>
+                            <a href="offer/fill/<% currentUser.id %>" class="btn btn-primary">Fill offer</a>
+                            <% if (currentUser && currentUser.id === offer.user.id) { %>
+                                <a href="/offer/edit/<%= offer.id %>" class="btn btn-primary">Edit offer</a>
+                        
+                                <form action="/offer/delete/<%= offer.id %>?_method=DELETE" method="POST" style="display: inline;">
+                                    <input type="submit" class="btn btn-danger" value="Delete offer">
+                                </form>
+                            <% } %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    mapboxgl.accessToken = '<%= apiKey %>'
+
+    let map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [<%= offer.location.lat %>, <%= offer.location.long %>],
+        zoom: 12,
+    })
+
+    let marker = new mapboxgl.Marker()
+        .setLngLat([<%= offer.location.lat %>, <%= offer.location.long %>])
+        .addTo(map)
+
+</script>

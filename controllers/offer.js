@@ -86,7 +86,7 @@ router.get('/search', (req, res) => {
 
 router.get('/show/:id', (req, res) => {
     db.offer.findByPk(req.params.id, {include: [db.user, db.location]}).then(offer => {
-        res.render('offer/show.ejs', {offer:offer})
+        res.render('offer/show.ejs', {offer:offer, apiKey: process.env.API_KEY})
     })
 })
 

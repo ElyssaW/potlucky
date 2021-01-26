@@ -3,71 +3,86 @@
         margin: 0;
         height: 100%;
         width: 100%;
+        z-index: -1;
+        position: absolute;
         border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
     }
 
     .col-one {
+        position: absolute;
+        height: 100%;
         background-color: white;
         border-top-left-radius: 15px;
         border-bottom-left-radius: 15px;
     }
 
-    .col-two {
-        padding: 0;
-    }
-
-    .row-one {
-        margin: 2vh;
-        height: 80vh;
-        background-color: black;
-        border-bottom-right-radius: 15px;
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-        border-bottom-left-radius: 15px;
-        border-bottom: black solid 15px;
+    .card-bank {
+        overflow-y: auto;
+        height: auto;
+        padding: 0 15px;
     }
 
     .well {
-        background-color: #F9AD6A;
         margin: 10px 0;
         display: flex;
+    }
+
+    .card-text{
+        background-color: #F9AD6A;
+        border-top-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        margin:0 10px;
+        width: 100%;
+        padding: 7px;
         transition: 1s;
     }
 
-    .well:hover {
-        border-top-width: 10px;
+    .card-text:hover {
+        background-color: white;
+        border-radius: 0;
     }
 
     .title {
+        height: 8%;
         text-align: center;
-        padding-left: 20px;
+        z-index: 10;
+    }
+
+    .see-other {
+        margin: 0 auto;
+        background-color: white;
     }
 </style>
 
-<div class="container">
-    <div class="row row-one">
-        <div class="col-md-6 col-one">
+<div id="map"></div>
 
-            <span class="title">
-                <h1>REQUESTS <a href="/request/new" class="btn btn-primary">Make New Request</a></h1>
-            </span>
-            
-            <% requests.forEach(request => { %>
-                <div class="well">
+<div class="col-md-4 col-one">
+
+    <div class="title">
+        <h1>requestS <a href="/request/new" class="btn btn-primary">Make New request</a></h1>
+    </div>
+
+    <div class="card-bank">
+        <% requests.forEach(request => { %>
+            <div class="well">
+                <div>
+                    <img src="/Images/avatars/pom.jpg" height="80px" width="80px" alt="Avatar">
+                </div>
+    
+                <div class="card-text">
                     <div class="profile">
-                        <img src="/Images/avatars/pom.jpg" height="80px" width="80px" alt="Avatar">
+                        <h4 style="display: inline;"><a href="/request/show/<%= request.id %>"><%= request.title %> by <%= request.user.name %></a></h4>
                     </div>
-
-                    <h4><a href="/request/show/<%= request.id %>"><%= request.title %> by <%= request.user.name %></a></h4>
+    
                     <%= request.content %> at <%= request.location.address %>
                 </div>
-            <% }) %>
-        </div>
+            </div>
+        <% }) %>
+    </div>
 
-        <div class="col-md-6 col-two">
-            <div id="map"></div>
-        </div>
+    <div class="title col-md-4 see-other">
+        <h1><a href="/request/search" class="btn btn-primary">See requests</a></h1>
     </div>
 </div>
 

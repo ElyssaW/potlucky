@@ -3,36 +3,96 @@
         margin: 0;
         height: 100%;
         width: 100%;
-        border-top-right-radius: 15px;
-        border-bottom-right-radius: 15px;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
     }
+
+    .col-one {
+        padding: 0;
+        min-height: 400px;
+        min-width: 400px;
+        background-color: white;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+    }
+
+    .col-two {
+        padding: 0;
+        background-image: url('/Images/lemons.jpg');
+        background-size: 300px;
+        background-repeat: repeat;
+        padding: 30px;
+    }
+
+    .row-one {
+        margin: 2vh;
+        height: 80vh;
+        background-color: black;
+        border-bottom-right-radius: 15px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        border-bottom-left-radius: 15px;
+        border-bottom: black solid 15px;
+    }
+
+    .well {
+        background-color: white;
+        border-bottom-right-radius: 15px;
+        padding: 10px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .title {
+        text-align: center;
+        padding-left: 20px;
+    }
+
+    .foodpic {
+        border-top-right-radius: 15px;
+        border-top-left-radius: 15px;
+    }
+
 </style>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row row-one">
+        <div class="col-md-6 col-one">
             <div id="map"></div>
         </div>
 
-        <div class="col-md-6">
-            <h3><%= request.title %></h3>
-            <h6><%= request.user.name %></h6>
-        
-            <h3><%= request.location.address %></h3>
-            <p><%= request.content %></p>
+        <div class="col-md-6 col-two">
+            <div class="well">
+                <div class="row row-card">
+                    <img class="foodpic" src="https://scx2.b-cdn.net/gfx/news/hires/2016/howcuttingdo.jpg">
+                </div>
+
+                <div class="row row-text">
+                    <div>
+                        <h3 style="display: inline;"><%= request.title %></h3> by <h6 style="display: inline;"><%= request.user.name %></h6>
+                    </div>
                 
-            <% if (request.recipelink) { %>
-                <a href='<% request.recipelink %>'>Recipe</a>
-            <% } %>
-              
-            <a href="request/fill/<% currentUser.id %>" class="btn btn-primary">Fill Request</a>
-            <% if (currentUser.id === request.user.id) { %>
-                <a href="/request/edit/<%= request.id %>" class="btn btn-primary">Edit Request</a>
-        
-                <form action="/request/delete/<%= request.id %>?_method=DELETE" method="POST">
-                    <input type="submit" class="btn btn-danger" value="Delete Request">
-                </form>
-            <% } %>
+                    <h3><%= request.location.address %></h3>
+                    <p><%= request.content %></p>
+                        
+                    <% if (request.recipelink) { %>
+                        <a href='<% request.recipelink %>'>Recipe</a>
+                    <% } %>
+                    
+                    <div class="btn-banl" style="display: flex; justify-content: space-between;">
+                        <% if (currentUser) { %>
+                            <a href="request/fill/<% currentUser.id %>" class="btn btn-primary">Fill Request</a>
+                            <% if (currentUser && currentUser.id === request.user.id) { %>
+                                <a href="/request/edit/<%= request.id %>" class="btn btn-primary">Edit Request</a>
+                        
+                                <form action="/request/delete/<%= request.id %>?_method=DELETE" method="POST" style="display: inline;">
+                                    <input type="submit" class="btn btn-danger" value="Delete Request">
+                                </form>
+                            <% } %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -43,12 +103,12 @@
     let map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
-        center: [<%= loc.lat %>, <%= loc.long %>],
+        center: [<%= request.location.lat %>, <%= request.location.long %>],
         zoom: 12,
     })
 
     let marker = new mapboxgl.Marker()
-        .setLngLat([<%= loc.lat %>, <%= loc.long %>])
+        .setLngLat([<%= request.location.lat %>, <%= request.location.long %>])
         .addTo(map)
 
 </script>

@@ -1,17 +1,68 @@
-<h4><%= currentUser.name %>'s profile</h4>
 
-<h4>Location: <% currentUser.locations.forEach((location, i) => { %>
-    <%= location.address %>, <%= location.zipcode %>
-    <% if (i !== currentUser.locations.length - 1) { %>, <% } %>
-<% }) %></h4>
+<style>
+    #map {
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+    }
 
+    .col-one {
+        padding: 0;
+        min-height: 400px;
+        min-width: 400px;
+        background-color: white;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+    }
 
-    import mapboxgl from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
+    .col-two {
+        padding: 0;
+        background-image: url('/Images/lemons.jpg');
+        background-size: 300px;
+        background-repeat: repeat;
+        padding: 30px;
+    }
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZWx5c3NhdyIsImEiOiJja2s3azY0OW4wZWwxMm5udHpiMG81YWI5In0.rGTnpCR22h2pcwRcBhav8A';
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-        center: [-74.5, 40], // starting position [lng, lat]
-        zoom: 9 // starting zoom
-    })
+    .row-one {
+        margin: 2vh;
+        height: 80vh;
+        background-color: black;
+        border-bottom-right-radius: 15px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        border-bottom-left-radius: 15px;
+        border-bottom: black solid 15px;
+    }
+
+    .well {
+        background-color: white;
+        border-bottom-right-radius: 15px;
+        padding: 10px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .title {
+        text-align: center;
+        padding-left: 20px;
+    }
+
+    .foodpic {
+        border-top-right-radius: 15px;
+        border-top-left-radius: 15px;
+    }
+
+</style>
+
+<div class="container">
+    <div class="row row-one">
+
+        <div class="col-md-6 col-two">
+            <div class="well">
+                <h3><%= user.name %></h3>
+            </div>
+        </div>
+    </div>
+</div>
