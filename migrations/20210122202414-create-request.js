@@ -14,6 +14,10 @@ module.exports = {
       title: {
         type: Sequelize.TEXT
       },
+      type: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       locationId: {
         type: Sequelize.INTEGER
       },
@@ -25,6 +29,9 @@ module.exports = {
       },
       filled: {
         type: Sequelize.INTEGER
+      },
+      neededby: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

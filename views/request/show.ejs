@@ -96,6 +96,12 @@
         padding: 10px;
         background-color: #f9E07F;
     }
+
+    .type-label {
+        padding: 0 10px 5px;
+        background-color: #f9E07F;
+        border-radius: 15px;
+    }
   
   </style>
   
@@ -111,8 +117,10 @@
     <div class="right-col col-md-8">
       <div class="card">
         <div>
-            <h1 class="profile-display display-1"> <%= request.title %> </h1>
-            <h2>In <%= request.location.zipcode %></h2>
+            <h1 class="profile-display display-1">
+                <%= request.title %> </h1>
+            <h2><span class="type-label"><%= request.type %></span>
+                in <%= request.location.zipcode %></h2>
         </div>
 
         <div class="row row-text">

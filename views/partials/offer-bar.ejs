@@ -1,0 +1,25 @@
+<div class="title">
+    <h1>OFFERS <a href="/request/new/offer" class="btn btn-primary">Make New Offer</a></h1>
+</div>
+
+<div class="card-bank">
+    <% requests.forEach(request => { %>
+        <div class="well">
+            <div>
+                <img src="<%= request.user.aviurl %>" height="80px" width="80px" alt="Avatar">
+            </div>
+
+            <div class="card-text">
+                <div class="profile">
+                    <h4 style="display: inline;"><a href="/request/show/<%= request.id %>"><%= request.title %> by <%= request.user.name %></a></h4>
+                </div>
+
+                <%= request.location.address %>
+            </div>
+        </div>
+    <% }) %>
+</div>
+
+<div class="title col-md-4 see-other">
+    <h1><a href="/request/search/request" class="btn btn-primary">See requests</a></h1>
+</div>

@@ -22,6 +22,12 @@ router.get('/signup/confirm', (req, res) => {
 
 // Post signup
 router.post('/signup', (req, res) => {
+    if(!req.body.aviurl) {
+        req.body.aviurl = '/Images/avatars/' + Math.floor(Math.random() * 5) + '.jpg'
+    }
+
+    console.log(req.body.aviurl)
+
     db.user.findOrCreate({
         where: {
             email: req.body.email
@@ -32,7 +38,8 @@ router.post('/signup', (req, res) => {
             usertype: req.body.usertype,
             fills: 0,
             reqs: 0,
-            likes: 0
+            likes: 0,
+            aviurl: req.body.aviurl
         }
     })
     .then(([user, wasCreated])=>{
@@ -57,7 +64,6 @@ router.post('/signup', (req, res) => {
                             city: req.body.city,
                             address: req.body.address,
                             zipcode: req.body.zipcode,
-                            state: req.body.state,
                             lat: lat,
                             long: long,
                             country: 'US'

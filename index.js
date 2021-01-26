@@ -56,8 +56,8 @@ app.use((req, res, next) => {
 
 // Import modules
 app.use('/auth', require('./controllers/auth.js'))
-app.use('/offer', require('./controllers/offer.js'))
 app.use('/request', require('./controllers/ask.js'))
+//app.use('/searchby', require('./controllers/searchby.js'))
 
 // Home route
 app.get('/', (req, res) => {

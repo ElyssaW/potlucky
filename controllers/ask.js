@@ -5,8 +5,8 @@ let router = express.Router()
 const isLoggedIn = require('../middleware/isLoggedIn.js')
 const db = require('../models/index.js')
 
-router.get('/new', isLoggedIn, (req, res) => {
-    res.render('request/new.ejs')
+router.get('/new/:type', isLoggedIn, (req, res) => {
+    res.render('request/new.ejs', {type: req.params.type})
 })
 
 router.post('/new', (req, res) => {
@@ -15,13 +15,14 @@ router.post('/new', (req, res) => {
         locationId: req.body.locationId,
         content: req.body.content,
         recipelink: req.body.recipelink,
+        type: req.body.type,
         filled: 0
     }).then(request => {
         db.location.findByPk(req.body.locationId).then(location => {
             location.addRequest(request).then(() => {
                 db.user.findByPk(req.body.userId).then(user => {
                     user.addRequest(request).then(() => {
-                        res.redirect('/request/search')
+                        res.redirect('/request/search/' + req.body.type)
                     })
                 })
             })
@@ -29,7 +30,7 @@ router.post('/new', (req, res) => {
     })
 })
 
-router.get('/search', (req, res) => {
+router.get('/search/:type', (req, res) => {
     let lat
     let long
 
@@ -43,6 +44,8 @@ router.get('/search', (req, res) => {
 
     let bbox = [lat-1, long-1, parseFloat(lat)+1, parseFloat(long)+1]
 
+    console.log(req.params.type)
+
     db.request.findAll({
         where: {
             [Op.and]: [
@@ -54,15 +57,22 @@ router.get('/search', (req, res) => {
                 '$location.long$': {
                     [Op.between]: [bbox[1], bbox[3]]
                 }
+            },
+            {
+                type: req.params.type
             }
         ]
     },
         include: [db.user, db.location]
     }).then(requests => {
 
-        res.render('request/search.ejs', {loc: {lat:lat, long:long}, 
-                                            requests: requests, 
-                                            apiKey: process.env.API_KEY})
+        console.log(requests)
+
+        res.render('request/search.ejs', {
+            loc: {lat:lat, long:long}, 
+            requests: requests,
+            apiKey: process.env.API_KEY
+        })
     })
 })
 
@@ -92,9 +102,6 @@ router.put('/edit/:id', (req, res) => {
     }).then(([rowsChanged, request]) => {
         console.log(request)
         if (req.body.locationId !== request.locationId) {
-            console.log('IDs did not match -----------------------------')
-            console.log(req.body.locationId)
-            console.log(request.locationId)
             db.location.findByPk(request.locationId).then(location => {
                 console.log(location)
                 location.removeRequest(request).then(() => {

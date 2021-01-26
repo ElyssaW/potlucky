@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   request.init({
     userId: DataTypes.INTEGER,
     title: DataTypes.TEXT,
+    type: DataTypes.STRING,
     locationId: DataTypes.INTEGER,
     content: DataTypes.TEXT,
     recipelink: DataTypes.TEXT,

@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.user.hasMany(models.request)
-      models.user.hasMany(models.offer)
       models.user.belongsToMany(models.location, {through: 'userLocation'})
     }
   };
@@ -55,24 +54,20 @@ module.exports = (sequelize, DataTypes) => {
     usertype: DataTypes.STRING,
     fills: DataTypes.INTEGER,
     reqs: DataTypes.INTEGER,
-    likes: DataTypes.INTEGER
+    likes: DataTypes.INTEGER,
+    aviurl: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'user',
   });
 
   user.addHook('beforeCreate', (pendingUser, options) => {
-    console.log('Original password: ' + pendingUser.password)
     let hashedPassword = bcrypt.hashSync(pendingUser.password, 10)
-    console.log('Hashed password: ' + hashedPassword)
     pendingUser.password = hashedPassword
   })
 
   user.prototype.validPassword = async function(passwordInput) {
-    console.log('Password validation')
-    console.log(passwordInput)
     let match = await bcrypt.compare(passwordInput, this.password)
-    console.log(match)
     return match
   }
 
