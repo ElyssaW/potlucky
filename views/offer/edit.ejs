@@ -1,29 +1,86 @@
-<form action="/offer/edit/<%= offer.id %>?_method=PUT" method="POST">
-    <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">Title</label>
-      <input type="text" class="form-control" id="exampleFormControlInput1" value="<%= offer.title %>" name="title">
-    </div>
-    
-    <div class="mb-3">
-      <label for="exampleFormControlTextarea1" class="form-label">I would like...</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="3"><%= offer.content %></textarea>
+
+  <style>
+    .profile-row {
+        width: 80vw;
+        height: 100vh;
+    }
+    .left-col {
+        background-image: url('/Images/lemons.jpg');
+        background-size: 500px;
+        background-repeat: repeat;
+        border-right: white solid 50px;
+    }
+  
+    .profile-pic {
+        z-index: 5;
+        position:absolute;
+        top: 15vh;
+        left: 140px;
+        width: 250px;
+        height: 250px;
+        border-radius: 30px;
+    }
+  
+    .card {
+        padding: 20px;
+        height: 70vh;
+        width: 50vw;
+        position: relative;
+        top: 10vh;
+        border: none;
+        left: 10vw;
+    }
+  
+    .profile-display {
+        display: inline;
+    }
+  
+    .card-bank {
+        border-radius: 15px;
+        padding: 10px;
+        background-color: #f9E07F;
+    }
+  
+  </style>
+  
+  <div class="row profile-row">
+    <div class="left-col col-md-3">
+        
     </div>
   
-    <div class="mb-3">
-      <label for="exampleFormControlTextarea1" class="form-label">Recipe Link (Optional)</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" name="recipelink" rows="3"><%= offer.recipelink %></textarea>
+    <div class="right-col col-md-8">
+      <div class="card">
+        <div>
+          <form action="/offer/edit/<%= offer.id %>?_method=PUT" method="POST">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Title</label>
+              <input type="text" class="form-control" id="exampleFormControlInput1" value="<%= offer.title %>" name="title">
+            </div>
+            
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">I would like...</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="3"><%= offer.content %></textarea>
+            </div>
+          
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Recipe Link (Optional)</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" name="recipelink" rows="3"><%= offer.recipelink %></textarea>
+            </div>
+          
+            <div class="col-md-4">
+              <label for="input-location" class="form-label">Location</label>
+              <select id="input-location" name="locationId" class="form-select">
+                <% currentUser.locations.forEach(location => { %>
+                  <option value="<%= location.id %>"> <%= location.address %> </option>
+                <% }) %>
+              </select>
+          
+              <input type="hidden" value="<%= currentUser.id %>" name="userId">
+          
+              <input type="submit" class="btn btn-primary">
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-  
-    <div class="col-md-4">
-      <label for="input-location" class="form-label">Location</label>
-      <select id="input-location" name="locationId" class="form-select">
-        <% currentUser.locations.forEach(location => { %>
-          <option value="<%= location.id %>"> <%= location.address %> </option>
-        <% }) %>
-      </select>
-  
-      <input type="hidden" value="<%= currentUser.id %>" name="userId">
-  
-      <input type="submit" class="btn btn-primary">
-    </div>
-  </form>
+  </div>

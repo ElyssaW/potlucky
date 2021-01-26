@@ -1,67 +1,97 @@
 
 <style>
-    #map {
-        margin: 0;
-        height: 100%;
-        width: 100%;
-        border-top-left-radius: 15px;
-        border-bottom-left-radius: 15px;
+    .profile-row {
+        width: 80vw;
+        height: 100vh;
     }
-
-    .col-one {
-        padding: 0;
-        min-height: 400px;
-        min-width: 400px;
-        background-color: white;
-        border-top-left-radius: 15px;
-        border-bottom-left-radius: 15px;
-    }
-
-    .col-two {
-        padding: 0;
+    .left-col {
         background-image: url('/Images/lemons.jpg');
-        background-size: 300px;
+        background-size: 500px;
         background-repeat: repeat;
-        padding: 30px;
+        border-right: white solid 50px;
     }
 
-    .row-one {
-        margin: 2vh;
-        height: 80vh;
-        background-color: black;
-        border-bottom-right-radius: 15px;
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-        border-bottom-left-radius: 15px;
-        border-bottom: black solid 15px;
+    .profile-pic {
+        z-index: 5;
+        position:absolute;
+        top: 15vh;
+        left: 140px;
+        width: 250px;
+        height: 250px;
+        border-radius: 30px;
     }
 
-    .well {
-        background-color: white;
-        border-bottom-right-radius: 15px;
+    .card {
+        padding: 20px;
+        padding-left: 10vw;
+        height: 70vh;
+        width: 75vw;
+        position: relative;
+        top: 10vh;
+        border: none;
+        left: -3vw;
+    }
+
+    .profile-display {
+        display: inline;
+    }
+
+    .card-bank {
+        border-radius: 15px;
         padding: 10px;
-        width: 100%;
-        height: 100%;
-    }
-
-    .title {
-        text-align: center;
-        padding-left: 20px;
-    }
-
-    .foodpic {
-        border-top-right-radius: 15px;
-        border-top-left-radius: 15px;
+        background-color: #f9E07F;
     }
 
 </style>
 
-<div class="container">
-    <div class="row row-one">
+<div class="row profile-row">
 
-        <div class="col-md-6 col-two">
-            <div class="well">
-                <h3><%= user.name %></h3>
+        <img class="profile-pic" src="/Images/avatars/pom.jpg">
+
+    <div class="left-col col-md-3">
+        
+    </div>
+
+    <div class="right-col col-md-8">
+        <div class="card">
+            <div>
+                <h1 class="profile-display display-1"> <%= user.name %> </h1>
+                <p class="profile-display"><%= user.fills %> offers filled and <%= user.reqs %> offers made</p>
+                <h2>In <%= user.locations[0].dataValues.zipcode %></h2>
+            </div>
+
+            <div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card-bank">
+                            <h1>Offers</h1>
+                            <% user.offers.forEach(offer => { %>
+                                <div class="well">
+                                    <div class="card-text">
+                                        <div class="profile">
+                                            <h4 style="display: inline;"><a href="/offer/show/<%= offer.id %>"><%= offer.title %> by <%= user.name %></a></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card-bank">
+                            <h1>Requests</h1>
+                            <% user.requests.forEach(request => { %>
+                                <div class="well">
+                                    <div class="card-text">
+                                        <div class="profile">
+                                            <h4 style="display: inline;"><a href="/request/show/<%= request.id %>"><%= request.title %> by <%= user.name %></a></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

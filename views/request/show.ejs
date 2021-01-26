@@ -1,10 +1,10 @@
+
 <style>
     #map {
         margin: 0;
         height: 100%;
         width: 100%;
-        border-top-left-radius: 15px;
-        border-bottom-left-radius: 15px;
+        border-radius: 30px;
     }
 
     .col-one {
@@ -53,49 +53,95 @@
         border-top-left-radius: 15px;
     }
 
-</style>
+    .profile-row {
+        width: 80vw;
+        height: 100vh;
+    }
+    .left-col {
+        background-image: url('/Images/lemons.jpg');
+        background-size: 500px;
+        background-repeat: repeat;
+        border-right: white solid 50px;
+    }
+  
+    .profile-pic {
+        z-index: 5;
+        position:absolute;
+        padding: 0;
+        top: 15vh;
+        left: 15vw;
+        width: 20vw;
+        height: 65vh;
+        border-radius: 30px;
+        border: white solid 10px;
+    }
+  
+    .card {
+        padding: 40px;
+        padding-left: 200px;
+        height: 70vh;
+        width: 65vw;
+        position: relative;
+        top: 10vh;
+        border: none;
+        left: -3vw;
+    }
+  
+    .profile-display {
+        display: inline;
+    }
+  
+    .card-bank {
+        border-radius: 15px;
+        padding: 10px;
+        background-color: #f9E07F;
+    }
+  
+  </style>
+  
+  <div class="row profile-row">
+    <div class="profile-pic">
+        <div id="map"></div>
+    </div>
 
-<div class="container">
-    <div class="row row-one">
-        <div class="col-md-6 col-one">
-            <div id="map"></div>
+    <div class="left-col col-md-4">
+
+    </div>
+  
+    <div class="right-col col-md-8">
+      <div class="card">
+        <div>
+            <h1 class="profile-display display-1"> <%= request.title %> </h1>
+            <h2>In <%= request.location.zipcode %></h2>
         </div>
 
-        <div class="col-md-6 col-two">
-            <div class="well">
-                <div class="row row-card">
-                    <img class="foodpic" src="https://scx2.b-cdn.net/gfx/news/hires/2016/howcuttingdo.jpg">
-                </div>
-
-                <div class="row row-text">
-                    <div>
-                        <h3 style="display: inline;"><%= request.title %></h3> by <h6 style="display: inline;"><%= request.user.name %></h6>
-                    </div>
+        <div class="row row-text">
+            <div>
+                <h3 style="display: inline;">By <%= request.user.name %></h3>
+            </div>
+        
+            <p><%= request.content %></p>
                 
-                    <h3><%= request.location.address %></h3>
-                    <p><%= request.content %></p>
-                        
-                    <% if (request.recipelink) { %>
-                        <a href='<% request.recipelink %>'>Recipe</a>
+            <% if (request.recipelink) { %>
+                <a href='<% request.recipelink %>'>Recipe</a>
+            <% } %>
+            
+            <div class="btn-banl" style="display: flex; justify-content: flex-start;">
+                <% if (currentUser) { %>
+                    <a href="request/fill/<% currentUser.id %>" class="btn btn-primary">Fill request</a>
+                    <% if (currentUser && currentUser.id === request.user.id) { %>
+                        <a href="/request/edit/<%= request.id %>" class="btn btn-primary">Edit request</a>
+                
+                        <form action="/request/delete/<%= request.id %>?_method=DELETE" method="POST" style="display: inline;">
+                            <input type="submit" class="btn btn-danger" value="Delete request">
+                        </form>
                     <% } %>
-                    
-                    <div class="btn-banl" style="display: flex; justify-content: space-between;">
-                        <% if (currentUser) { %>
-                            <a href="request/fill/<% currentUser.id %>" class="btn btn-primary">Fill Request</a>
-                            <% if (currentUser && currentUser.id === request.user.id) { %>
-                                <a href="/request/edit/<%= request.id %>" class="btn btn-primary">Edit Request</a>
-                        
-                                <form action="/request/delete/<%= request.id %>?_method=DELETE" method="POST" style="display: inline;">
-                                    <input type="submit" class="btn btn-danger" value="Delete Request">
-                                </form>
-                            <% } %>
-                        <% } %>
-                    </div>
+                <% } %>
                 </div>
             </div>
         </div>
     </div>
-</div>
+  </div>
 
 <script>
     mapboxgl.accessToken = '<%= apiKey %>'

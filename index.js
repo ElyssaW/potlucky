@@ -24,6 +24,7 @@ app.use(express.urlencoded({ extended: false }))
 
 // Public folder
 const path = require('path')
+const { use } = require('./controllers/ask.js')
 app.use(express.static(path.join(__dirname, 'public')))
 
 // Session middleware
@@ -66,8 +67,19 @@ app.get('/', (req, res) => {
 // Profile route
 app.get('/profile/:id', isLoggedIn, (req, res) => {
     db.user.findByPk(req.params.id).then(user => {
-        console.log(user)
-        res.render('profile.ejs', {user:user})
+        user.getLocations().then(locations => {
+            user.locations = locations
+            user.getRequests().then(requests => {
+                user.requests = requests
+                user.getOffers().then(offers => {
+                    user.offers = offers
+            
+                    console.log(user.requests)
+                    console.log(user.offers)
+                    res.render('profile.ejs', {user:user})
+                }) 
+            })
+        })
     })
 })
 
