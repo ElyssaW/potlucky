@@ -3,6 +3,8 @@ let router = express.Router()
 const isLoggedIn = require('../middleware/isLoggedIn.js')
 const db = require('../models/index.js')
 const { Op } = require("sequelize")
+const { request } = require('express')
+const { off } = require('process')
 
 router.get('/', (req, res) => {
     console.log('----------------------')
@@ -35,7 +37,7 @@ router.post('/', (req, res) => {
         bbox = [-100, -100, 100, 100]
     }
     
-    db.offer.findAll({
+    db.request.findAll({
         where: {
             [Op.and]: [
             {
@@ -50,73 +52,43 @@ router.post('/', (req, res) => {
                 [Op.or]: [
                 {
                     title: {
-                        [Op.like]: `%${req.body.key}%`
+                        [Op.iLike]: `%${req.body.key}%`
                     }
                 }, {
                     content: {
-                        [Op.like]: `%${req.body.key}%`
+                        [Op.iLike]: `%${req.body.key}%`
                     }
                 }, {
                     recipelink: {
-                        [Op.like]: `%${req.body.key}%`
+                        [Op.iLike]: `%${req.body.key}%`
                     }
                 }, {
                     '$location.address$': {
-                        [Op.like]: `%${req.body.key}%`
+                        [Op.iLike]: `%${req.body.key}%`
                     }
                 }, {
                     '$location.city$': {
-                        [Op.like]: `%${req.body.key}%`
+                        [Op.iLike]: `%${req.body.key}%`
                     }
                 }
             ]}
         ]
     },
         include: [db.user, db.location]
-    }).then(offers => {
+    }).then(results => {
 
-        db.request.findAll({
-            where: {
-                [Op.and]: [
-                {
-                    '$location.lat$': {
-                        [Op.between]: [bbox[0], bbox[2]]
-                    }
-                }, {
-                    '$location.long$': {
-                        [Op.between]: [bbox[1], bbox[3]]
-                    }
-                }, {
-                    [Op.or]: [
-                    {
-                        title: {
-                            [Op.like]: `%${req.body.key}%`
-                        }
-                    }, {
-                        content: {
-                            [Op.like]: `%${req.body.key}%`
-                        }
-                    }, {
-                        recipelink: {
-                            [Op.like]: `%${req.body.key}%`
-                        }
-                    }, {
-                        '$location.address$': {
-                            [Op.like]: `%${req.body.key}%`
-                        }
-                    }, {
-                        '$location.city$': {
-                            [Op.like]: `%${req.body.key}%`
-                        }
-                    }
-                ]}
-            ]
-        },
-            include: [db.user, db.location]
-        }).then(offers => {
-        res.render('searchby/results.ejs', {results: offers, 
-                                            loc: {lat:lat, long:long},
-                                            apiKey: process.env.API_KEY})
+        // if (req.body.searchType !== 'both') {
+        //     results.forEach((element, i) => {
+        //         if (element.type !== req.body.searchType) {
+        //             results.splice(i, 1)
+        //         }
+        //     })
+        // }
+
+            res.render('searchby/results.ejs', {
+                results: results, 
+                loc: {lat:lat, long:long},
+                apiKey: process.env.API_KEY})
     })
 })
 

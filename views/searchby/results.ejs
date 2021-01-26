@@ -48,24 +48,40 @@
     <div class="left-col col-md-3">
         
     </div>
-  
-    <div class="right-col col-md-8">
-      <div class="card">
-        <div>
-          <form action="/searchby" method="GET">
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Search By</label>
-              <input type="text" class="form-control" placeholder="Keyword, location, etc..." id="exampleFormControlInput1" name="search">
-            </div>
+      <div class="right-col col-md-8">
+        <div class="card">
+          <div>
+            <form action="/searchby" method="POST">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Search By</label>
+                <input type="text" class="form-control" placeholder="Keyword, location, etc..." id="exampleFormControlInput1" name="key">
+              </div>
 
-            <div>
-              <label for="anywhere">See results from everywhere</label>
-              <input type="checkbox" id="anywhere" name="targetSearch">
-            </div>
-            
-              <input type="submit" class="btn btn-primary">
-            </div>
-          </form>
+              <div>
+                <input type="radio" name="searchType" value="offers" id="1">
+                <label for="1">
+                  Search requests
+                </label>
+
+                <input type="radio" name="searchType" value="requests" id="2">
+                <label for="2">
+                  Search offers
+                </label>
+
+                <input type="radio" name="searchType" value="both" id="3" checked>
+                <label for="3">
+                  Search both
+                </label>
+              </div>
+  
+              <div>
+                <input type="checkbox" id="anywhere" name="targetSearch" checked>
+                <label for="anywhere">Restrict results to my area</label>
+              </div>
+              
+                <input type="submit" class="btn btn-primary">
+              </div>
+            </form>
 
           <div class="display-results">
             <div class="card-bank">
