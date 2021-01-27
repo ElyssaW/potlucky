@@ -77,6 +77,8 @@ router.get('/search/:type', (req, res) => {
                 long: request.location.long,
                 title: request.title,
                 address: request.location.address,
+                id: request.id,
+                avi: request.user.aviurl,
                 color: '#D46C4E'
             }
 

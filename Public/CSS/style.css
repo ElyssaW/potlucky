@@ -1,5 +1,6 @@
 body {
   background-color: white;
+  font-family: "Poppins", sans-serif;
 }
 
 a {
@@ -44,27 +45,35 @@ a:hover {
   color: #F9AD6A;
 }
 
-.home-title {
+.navbar .avi {
+  position: absolute;
+  top: 2vh;
+  border-radius: 25px;
+  right: 5vw;
+  width: 50px;
+}
+
+.home .home-title {
   color: black;
   font-size: 150px;
   font-family: "Bungee Shade", cursive;
 }
 
-.parent-title-div {
+.home .parent-title-div {
   z-index: 10;
 }
 
-.parent-title-div:hover .title-background-div {
+.home .parent-title-div:hover .title-background-div {
   -webkit-filter: blur(0);
           filter: blur(0);
 }
 
-.parent-title-div:hover .title-background-div-404 {
+.home .parent-title-div:hover .title-background-div-404 {
   -webkit-filter: blur(0);
           filter: blur(0);
 }
 
-.title-background-div {
+.home .title-background-div {
   position: absolute;
   background-image: url("/Images/orange-juice.jpg");
   background-position: 1000% 50%;
@@ -81,7 +90,7 @@ a:hover {
   transition: 1s;
 }
 
-.title-background-div-404 {
+.home .title-background-div-404 {
   position: absolute;
   background-image: url("/Images/cake.jpg");
   background-position: center;
@@ -97,16 +106,16 @@ a:hover {
   transition: 1s;
 }
 
-.title-subhead:hover {
+.home .title-subhead:hover {
   padding-left: 150px;
 }
 
-.title-background-div:hover {
+.home .title-background-div:hover {
   filter: blur(0);
   -webkit-filter: blur(0);
 }
 
-.title-div {
+.home .title-div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -232,28 +241,10 @@ a:hover {
   width: 35vw;
 }
 
-.nav-logo {
-  width: 70px;
-}
-
 .nav-title {
   font-family: "Bungee Shade", cursive;
   font-size: 30px;
   padding: 18px;
-}
-
-.midbar-rolls {
-  background-repeat: repeat;
-  width: 100%;
-  height: 92vh;
-  background-size: 100%;
-  background-image: url("/Images/rolls.jpg");
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
 .title-div .home-title {
@@ -272,80 +263,6 @@ a:hover {
   color: #F9AD6A;
 }
 
-.title-card-div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  margin-bottom: 50px;
-}
-
-.title-card-div .title-card {
-  width: 30%;
-  background-color: #D46C4E;
-  border-radius: 25px;
-  padding: 30px;
-  -webkit-transition: 1s;
-  transition: 1s;
-}
-
-.title-card-div .title-card:hover {
-  border-radius: 0;
-}
-
-.home-form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  padding: 50px;
-}
-
-.home-form .signup-btn {
-  padding: 20px;
-  background-color: #264d59;
-  width: 50%;
-  border: none;
-  font-size: 30px;
-  border-radius: 25px;
-  color: white;
-  -webkit-transition: 1s;
-  transition: 1s;
-}
-
-.home-form .signup-btn:hover {
-  background-color: white;
-  border: none;
-  color: black;
-  border-radius: 0;
-}
-
-.footer {
-  background-color: #264d59;
-  height: 50vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: column;
-          flex-flow: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  padding-left: 10%;
-  color: white;
-}
-
-.footer .footer-list {
-  list-style-type: none;
-  padding: 0;
-}
-
 .mapboxgl-popup {
   max-width: 200px;
 }
@@ -353,5 +270,130 @@ a:hover {
 .mapboxgl-popup-content {
   text-align: center;
   font-family: 'Open Sans', sans-serif;
+}
+
+.popup-title {
+  padding: 2px;
+  border-radius: 5px;
+  background-color: #f9E07F;
+}
+
+.profile-row {
+  width: 80vw;
+  height: 100vh;
+}
+
+.left-col {
+  background-image: url("/Images/lemons.jpg");
+  background-size: 500px;
+  background-repeat: repeat;
+  border-right: white solid 50px;
+}
+
+.profile-pic {
+  z-index: 5;
+  position: absolute;
+  top: 15vh;
+  left: 140px;
+  width: 250px;
+  height: 250px;
+  border-radius: 30px;
+}
+
+.card {
+  padding: 20px;
+  height: 70vh;
+  width: 50vw;
+  position: relative;
+  top: 10vh;
+  border: none;
+  left: 10vw;
+}
+
+.profile-display {
+  display: inline;
+}
+
+.card-bank-search {
+  border-radius: 15px;
+  padding: 10px;
+  background-color: #f9E07F;
+}
+
+.map-show {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 30px;
+}
+
+.map-pic {
+  z-index: 5;
+  position: absolute;
+  padding: 0;
+  top: 15vh;
+  left: 15vw;
+  width: 20vw;
+  height: 65vh;
+  border-radius: 30px;
+  border: white solid 10px;
+}
+
+.map-show #map {
+  margin: 0;
+  height: 90vh;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.map-show .col-one {
+  position: absolute;
+  height: 90vh;
+  background-color: white;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.map-show .card-bank {
+  overflow-y: auto;
+  height: 75vh;
+  padding: 0 15px;
+}
+
+.map-show .well {
+  margin: 10px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.map-show .card-text {
+  background-color: #F9AD6A;
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  margin: 0 10px;
+  width: 100%;
+  padding: 7px;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.map-show .card-text:hover {
+  background-color: white;
+  border-radius: 0;
+}
+
+.map-show .title {
+  height: 8%;
+  text-align: center;
+  z-index: 10;
+}
+
+.map-show .see-other {
+  margin: 0 auto;
+  background-color: white;
 }
 /*# sourceMappingURL=style.css.map */

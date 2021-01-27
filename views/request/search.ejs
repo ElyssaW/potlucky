@@ -1,70 +1,15 @@
-<style>
-    #map {
-        margin: 0;
-        height: 100%;
-        width: 100%;
-        z-index: -1;
-        position: absolute;
-        border-top-right-radius: 15px;
-        border-bottom-right-radius: 15px;
-    }
+<div class="map-show">
+    <div id="map"></div>
 
-    .col-one {
-        position: absolute;
-        height: 100%;
-        background-color: white;
-        border-top-left-radius: 15px;
-        border-bottom-left-radius: 15px;
-    }
-
-    .card-bank {
-        overflow-y: auto;
-        height: auto;
-        padding: 0 15px;
-    }
-
-    .well {
-        margin: 10px 0;
-        display: flex;
-    }
-
-    .card-text{
-        background-color: #F9AD6A;
-        border-top-left-radius: 15px;
-        border-bottom-right-radius: 15px;
-        margin:0 10px;
-        width: 100%;
-        padding: 7px;
-        transition: 1s;
-    }
-
-    .card-text:hover {
-        background-color: white;
-        border-radius: 0;
-    }
-
-    .title {
-        height: 8%;
-        text-align: center;
-        z-index: 10;
-    }
-
-    .see-other {
-        margin: 0 auto;
-        background-color: white;
-    }
-</style>
-
-<div id="map"></div>
-
-<div class="col-md-4 col-one">
-
-    <% if (requests.length > 0 && requests[0].type === "request") { %>
-        <%- include('../partials/request-bar') %>
-    <% } else { %>
-        <%- include('../partials/offer-bar') %>
-    <% } %>
+    <div class="col-md-4 col-one">
     
+        <% if (requests.length > 0 && requests[0].type === "request") { %>
+            <%- include('../partials/request-bar') %>
+        <% } else { %>
+            <%- include('../partials/offer-bar') %>
+        <% } %>
+        
+    </div>
 </div>
 
 <script>
@@ -89,7 +34,7 @@
         marker = new mapboxgl.Marker({color: '<%= markers[i].color %>' })
         .setLngLat([<%= markers[i].lat %>, <%= markers[i].long %>])
         .setPopup(new mapboxgl.Popup({ offset: 25 })
-            .setHTML('<a href="/request/show/<%= (i + 1) %>"><h3> <%= markers[i].title %> </h3> <p> <%= markers[i].address %> </p></a>'))
+            .setHTML('<a href="/request/show/<%= markers[i].id %>"><img class="popup-avi" width=150px src="<%= markers[i].avi %>"><h3 class="popup-title"> <%= markers[i].title %> </h3> <p> <%= markers[i].address %> </p></a>'))
         .addTo(map)
         <% i++ %>
     }

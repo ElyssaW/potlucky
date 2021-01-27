@@ -12,6 +12,10 @@ const axios = require('axios')
 // Instantiate express
 let app = express()
 
+// Instantiate socket.io
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
+
 // Set the view engine
 app.set('view engine', 'ejs')
 app.use(layout)
@@ -95,6 +99,10 @@ app.get('*', (req, res) => {
     res.render('404.ejs')
 })
 
-app.listen(process.env.PORT, () => {
+io.on('connection', (socket) => {
+    console.log('A user connected!')
+})
+
+http.listen(process.env.PORT, () => {
     console.log('Hello from port 3000')
 })

@@ -2,9 +2,11 @@ $test-color: #f9E07F;
 $dark-color: #F9AD6A;
 $corner-radius: 25px;
 $title-font: 'Bungee Shade', cursive;
+$body-font: 'Poppins', sans-serif;
 
 body {
     background-color: white;
+    font-family: $body-font;
 }
 
 a {
@@ -45,72 +47,82 @@ a:hover {
         background-color: $test-color;
         color: $dark-color;
     }
+
+    .avi {
+        position: absolute;
+        top: 2vh;
+        border-radius: $corner-radius;
+        right: 5vw;
+        width: 50px;
+    }
 }
 
-.home-title {
-    color: black;
-    font-size: 150px;
-    font-family: $title-font;
-}
-
-.parent-title-div {
-    z-index: 10;
-}
-
-.parent-title-div:hover .title-background-div {
-    filter: blur(0);
-}
-
-.parent-title-div:hover .title-background-div-404 {
-    filter: blur(0);
-}
-
-.title-background-div {
-    position: absolute;
-    background-image: url('/Images/orange-juice.jpg');
-    background-position: 1000% 50%;
-    background-repeat: no-repeat;
-    background-size: 1500px;
-    z-index: -10;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-    transition: 1s;
-}
-
-.title-background-div-404 {
-    position: absolute;
-    background-image: url('/Images/cake.jpg');
-    background-position: center;
-    background-size: 1500px;
-    z-index: -10;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-    transition: 1s;
-}
-
-.title-subhead:hover {
-    padding-left: 150px;
-}
-
-.title-background-div:hover {
-    filter: blur(0);
-    -webkit-filter: blur(0);
-}
-
-.title-div {
-    display: flex;
-    height: 90vh;
-    color: black;
-    padding-top: 20vh;
-    padding-left: 3vw;
+.home {
+    .home-title {
+        color: black;
+        font-size: 150px;
+        font-family: $title-font;
+    }
+    
+    .parent-title-div {
+        z-index: 10;
+    }
+    
+    .parent-title-div:hover .title-background-div {
+        filter: blur(0);
+    }
+    
+    .parent-title-div:hover .title-background-div-404 {
+        filter: blur(0);
+    }
+    
+    .title-background-div {
+        position: absolute;
+        background-image: url('/Images/orange-juice.jpg');
+        background-position: 1000% 50%;
+        background-repeat: no-repeat;
+        background-size: 1500px;
+        z-index: -10;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+        transition: 1s;
+    }
+    
+    .title-background-div-404 {
+        position: absolute;
+        background-image: url('/Images/cake.jpg');
+        background-position: center;
+        background-size: 1500px;
+        z-index: -10;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+        transition: 1s;
+    }
+    
+    .title-subhead:hover {
+        padding-left: 150px;
+    }
+    
+    .title-background-div:hover {
+        filter: blur(0);
+        -webkit-filter: blur(0);
+    }
+    
+    .title-div {
+        display: flex;
+        height: 90vh;
+        color: black;
+        padding-top: 20vh;
+        padding-left: 3vw;
+    }
 }
 
 .midbar {
@@ -228,23 +240,10 @@ a:hover {
     width: 35vw;
 }
 
-.nav-logo{
-    width: 70px
-}
-
 .nav-title{
     font-family: $title-font;
     font-size: 30px;
     padding: 18px;
-}
-
-.midbar-rolls {
-    @include midbar();
-    background-size: 100%;
-    background-image: url('/Images/rolls.jpg');
-
-    display: flex;
-    align-items: center;
 }
 
 .title-div{
@@ -266,64 +265,6 @@ a:hover {
     }
 }
 
-.title-card-div{
-    display: flex;
-    justify-content: space-between;
-
-    .title-card {
-        width: 30%;
-        background-color: #D46C4E;
-        border-radius: $corner-radius;
-        padding: 30px;
-        transition: 1s;
-    }
-
-    .title-card:hover {
-        border-radius: 0;
-    }
-
-    margin-bottom: 50px;
-}
-
-.home-form {
-    display: flex;
-    justify-content: center;
-    padding: 50px;
-
-    .signup-btn {
-        padding: 20px;
-        background-color: #264d59;
-        width: 50%;
-        border: none;
-        font-size: 30px;
-        border-radius: $corner-radius;
-        color: white;
-        transition: 1s;
-    }
-
-    .signup-btn:hover {
-        background-color: white;
-        border: none;
-        color: black;
-        border-radius: 0;
-    }
-}
-
-.footer {
-    background-color: #264d59;
-    height: 50vh;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    padding-left: 10%;
-    color: white;
-
-    .footer-list {
-        list-style-type: none;
-        padding: 0;
-    }
-}
-
 .mapboxgl-popup {
     max-width: 200px;
   }
@@ -332,3 +273,128 @@ a:hover {
     text-align: center;
     font-family: 'Open Sans', sans-serif;
   }
+
+  .popup-title {
+      padding: 2px;
+      border-radius: 5px;
+      background-color: $test-color;
+  }
+
+ 
+  .profile-row {
+      width: 80vw;
+      height: 100vh;
+  }
+
+  .left-col {
+      background-image: url('/Images/lemons.jpg');
+      background-size: 500px;
+      background-repeat: repeat;
+      border-right: white solid 50px;
+  }
+
+  .profile-pic {
+      z-index: 5;
+      position:absolute;
+      top: 15vh;
+      left: 140px;
+      width: 250px;
+      height: 250px;
+      border-radius: 30px;
+  }
+
+  .card {
+      padding: 20px;
+      height: 70vh;
+      width: 50vw;
+      position: relative;
+      top: 10vh;
+      border: none;
+      left: 10vw;
+  }
+
+  .profile-display {
+      display: inline;
+  }
+
+  .card-bank-search {
+      border-radius: 15px;
+      padding: 10px;
+      background-color: #f9E07F;
+  }
+
+.map-show {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 30px;
+}
+
+.map-pic {
+    z-index: 5;
+    position:absolute;
+    padding: 0;
+    top: 15vh;
+    left: 15vw;
+    width: 20vw;
+    height: 65vh;
+    border-radius: 30px;
+    border: white solid 10px;
+}
+
+.map-show {
+    #map {
+        margin: 0;
+        height: 90vh;
+        width: 100%;
+        z-index: -1;
+        position: absolute;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+
+    .col-one {
+        position: absolute;
+        height: 90vh;
+        background-color: white;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+    }
+
+    .card-bank {
+        overflow-y: auto;
+        height: 75vh;
+        padding: 0 15px;
+    }
+
+    .well {
+        margin: 10px 0;
+        display: flex;
+    }
+
+    .card-text{
+        background-color: #F9AD6A;
+        border-top-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        margin:0 10px;
+        width: 100%;
+        padding: 7px;
+        transition: 1s;
+    }
+
+    .card-text:hover {
+        background-color: white;
+        border-radius: 0;
+    }
+
+    .title {
+        height: 8%;
+        text-align: center;
+        z-index: 10;
+    }
+
+    .see-other {
+        margin: 0 auto;
+        background-color: white;
+    }
+}
