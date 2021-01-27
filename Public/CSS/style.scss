@@ -1,14 +1,120 @@
 $test-color: #f9E07F;
+$dark-color: #F9AD6A;
 $corner-radius: 25px;
-$title-font: 'Luckiest Guy', cursive;
+$title-font: 'Bungee Shade', cursive;
 
 body {
-    background-color: $test-color;
+    background-color: white;
 }
 
 a {
     color: black;
     text-decoration: none;
+}
+
+a:hover {
+    color: black;
+}
+
+.btn-primary {
+    background-color: $test-color;
+    border: none;
+    color: black;
+}
+
+.navbar {
+    background-color: none;
+    border: none;
+
+    .nav-title {
+        padding: 5px 20px;
+        transition: 1s;
+    }
+
+    .nav-title:hover {
+        color: $test-color;
+        background-color: black;
+    }
+
+    .hover-nav {
+        position: relative;
+        transition: 1s;
+    }
+
+    .hover-nav:hover {
+        background-color: $test-color;
+        color: $dark-color;
+    }
+}
+
+.home-title {
+    color: black;
+    font-size: 150px;
+    font-family: $title-font;
+}
+
+.parent-title-div {
+    z-index: 10;
+}
+
+.parent-title-div:hover .title-background-div {
+    filter: blur(0);
+}
+
+.parent-title-div:hover .title-background-div-404 {
+    filter: blur(0);
+}
+
+.title-background-div {
+    position: absolute;
+    background-image: url('/Images/orange-juice.jpg');
+    background-position: 1000% 50%;
+    background-repeat: no-repeat;
+    background-size: 1500px;
+    z-index: -10;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    transition: 1s;
+}
+
+.title-background-div-404 {
+    position: absolute;
+    background-image: url('/Images/cake.jpg');
+    background-position: center;
+    background-size: 1500px;
+    z-index: -10;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    transition: 1s;
+}
+
+.title-subhead:hover {
+    padding-left: 150px;
+}
+
+.title-background-div:hover {
+    filter: blur(0);
+    -webkit-filter: blur(0);
+}
+
+.title-div {
+    display: flex;
+    height: 90vh;
+    color: black;
+    padding-top: 20vh;
+    padding-left: 3vw;
+}
+
+.midbar {
+    background-color: $test-color;
 }
 
 .map-container {

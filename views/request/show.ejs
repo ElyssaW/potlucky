@@ -136,7 +136,12 @@
             
             <div class="btn-banl" style="display: flex; justify-content: flex-start;">
                 <% if (currentUser) { %>
-                    <a href="request/fill/<% currentUser.id %>" class="btn btn-primary">Fill request</a>
+
+                    <form action="/request/fill/<%= request.id %>?_method=DELETE" method="POST">
+                        <input type="hidden" name="user" value="<%= currentUser.id %>">
+                        <input type="submit" class="btn btn-primary" value="Fill Request">
+                    </form>
+                    
                     <% if (currentUser && currentUser.id === request.user.id) { %>
                         <a href="/request/edit/<%= request.id %>" class="btn btn-primary">Edit request</a>
                 

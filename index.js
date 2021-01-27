@@ -91,9 +91,9 @@ app.get('/test', (req, res) => {
     })
 })
 
-// app.get('*', (req, res) => {
-//     res.render('404.ejs')
-// })
+app.get('*', (req, res) => {
+    res.render('404.ejs')
+})
 
 app.listen(process.env.PORT, () => {
     console.log('Hello from port 3000')

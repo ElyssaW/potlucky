@@ -135,13 +135,40 @@ router.put('/edit/:id', (req, res) => {
     })  
 })
 
+router.delete('/fill/:id', (req, res) => {
+    console.log('Route hit -------------------------')
+    db.request.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then(() => {
+        db.user.findByPk(req.body.user).then(user => {
+            let fills = user.fills + 1
+
+            db.user.update( {
+                fills: fills
+            }, {
+                where: {
+                    id: req.body.user
+                    },
+                    returning: true
+                }
+            ).then(() => {
+                console.log(user.fills)
+                res.redirect('/request/search/request')
+            })
+        })
+    })
+
+})
+
 router.delete('/delete/:id', (req, res) => {
     db.request.destroy({
         where: {
             id: req.params.id
         }
     }).then(() => {
-        res.redirect('/request/search')
+        res.redirect('/request/search/request')
     })
 })
 
