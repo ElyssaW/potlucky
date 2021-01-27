@@ -58,7 +58,6 @@ app.use((req, res, next) => {
 app.use('/auth', require('./controllers/auth.js'))
 app.use('/request', require('./controllers/ask.js'))
 app.use('/searchby', require('./controllers/searchby.js'))
-app.use('/recipe', require('./controllers/recipe.js'))
 
 // Home route
 app.get('/', (req, res) => {

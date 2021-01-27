@@ -66,10 +66,29 @@ router.get('/search/:type', (req, res) => {
         include: [db.user, db.location]
     }).then(requests => {
 
+        let loc = {lat:lat, long:long}
+
+        let markers = []
+
+        requests.forEach(request => {
+
+            let object = {
+                lat: request.location.lat,
+                long: request.location.long,
+                title: request.title,
+                address: request.location.address,
+                color: '#D46C4E'
+            }
+
+            markers.push(object)
+        })
+
         res.render('request/search.ejs', {
-            loc: {lat:lat, long:long}, 
+            loc: loc, 
             requests: requests,
-            apiKey: process.env.API_KEY
+            apiKey: process.env.API_KEY,
+            markers: markers,
+            markersLength: markers.length
         })
     })
 })
