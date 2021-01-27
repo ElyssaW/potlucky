@@ -65,30 +65,38 @@
                     <div class="col">
                         <div class="card-bank">
                             <h1>Offers</h1>
-                            <% user.offers.forEach(offer => { %>
-                                <div class="well">
-                                    <div class="card-text">
-                                        <div class="profile">
-                                            <h4 style="display: inline;"><a href="/offer/show/<%= offer.id %>"><%= offer.title %> by <%= user.name %></a></h4>
+                            <ul>
+
+                            <% user.requests.forEach(offer => { %>
+                                <% if(offer.type === 'offer') { %>
+                                    <li>
+                                        <div class="well">
+                                            <h4 style="display: inline;"><a href="/request/show/<%= offer.id %>"><%= offer.title %></a></h4>
                                         </div>
-                                    </div>
-                                </div>
+                                    </li>
+                                <% } %>
                             <% }) %>
+
+                            </ul>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="card-bank">
                             <h1>Requests</h1>
+                            <ul>
+
                             <% user.requests.forEach(request => { %>
-                                <div class="well">
-                                    <div class="card-text">
-                                        <div class="profile">
-                                            <h4 style="display: inline;"><a href="/request/show/<%= request.id %>"><%= request.title %> by <%= user.name %></a></h4>
+                                <% if(request.type === 'request') { %>
+                                    <li>
+                                        <div class="well">
+                                            <h4 style="display: inline;"><a href="/request/show/<%= request.id %>"><%= request.title %></a></h4>
                                         </div>
-                                    </div>
-                                </div>
+                                    </li>
+                                <% } %>
                             <% }) %>
+
+                            </ul>
                         </div>
                     </div>
                 </div>

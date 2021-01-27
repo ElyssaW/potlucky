@@ -66,8 +66,6 @@ router.get('/search/:type', (req, res) => {
         include: [db.user, db.location]
     }).then(requests => {
 
-        console.log(requests)
-
         res.render('request/search.ejs', {
             loc: {lat:lat, long:long}, 
             requests: requests,

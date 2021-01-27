@@ -58,6 +58,7 @@ app.use((req, res, next) => {
 app.use('/auth', require('./controllers/auth.js'))
 app.use('/request', require('./controllers/ask.js'))
 app.use('/searchby', require('./controllers/searchby.js'))
+app.use('/recipe', require('./controllers/recipe.js'))
 
 // Home route
 app.get('/', (req, res) => {
@@ -71,13 +72,8 @@ app.get('/profile/:id', isLoggedIn, (req, res) => {
             user.locations = locations
             user.getRequests().then(requests => {
                 user.requests = requests
-                user.getOffers().then(offers => {
-                    user.offers = offers
-            
-                    console.log(user.requests)
-                    console.log(user.offers)
-                    res.render('profile.ejs', {user:user})
-                }) 
+                
+                res.render('profile.ejs', {user:user})
             })
         })
     })
