@@ -48,14 +48,17 @@ app.use(flash())
 // CUSTOM MIDDLEWARE
 app.use((req, res, next) => {
     res.locals.alerts = req.flash()
-    console.log('middleware')
     if(req.user) {
         res.locals.currentUser = req.user
+        res.locals.socketId = 0
         next() // move onto the next piece
     } else {
         res.locals.currentUser = req.user
         next() // move onto the next piece
     }
+    
+    console.log('middleware')
+    console.log(res.locals)
 })
 
 // Import modules
@@ -99,8 +102,27 @@ app.get('*', (req, res) => {
     res.render('404.ejs')
 })
 
+let socketUsers = []
+
 io.on('connection', (socket) => {
-    console.log('A user connected!')
+    socketUsers.push({id: socket.id, userid: socket.handshake.headers.userid})
+    console.log('ping ----------------------------')
+    console.log(socket)
+    console.log(socketUsers)
+
+    socket.on('private message', msg => {
+        
+        let targetId = socketUsers[socketUsers.length-1].id
+        console.log('message ----------------------------')
+        console.log(targetId)
+        console.log(msg)
+        io.to(targetId).emit('private message', msg)
+    })
+
+    console.log(socket.id)
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', msg)
+    })
 })
 
 http.listen(process.env.PORT, () => {

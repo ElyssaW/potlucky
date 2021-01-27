@@ -1,0 +1,74 @@
+
+<div>
+    <ul height=200px style="background-color: red;" id="messages">
+        <li id="example">Messages go here</li>
+    </ul>
+    
+    <form id="chat-pane" action="">
+        <input id="chat-submit" autocomplete="off" /><button>Send</button>
+    </form>
+
+    <form id="my-button" action="">
+        <input id="my-message" autocomplete="off" /><button>Send Message To Self</button>
+    </form>
+</div>
+
+<% let currentUser = {id: 0} %>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    // Instantiate socket
+    let socket = io({
+        extraHeaders: {
+            userId: <%= currentUser.id %>
+        }
+    })
+    
+    // Grab DOM elements
+    let form = document.getElementById('chat-pane')
+    let input = document.getElementById('chat-submit')
+
+    // Grab DOM elements
+    let myForm = document.getElementById('my-button')
+    let myInput = document.getElementById('my-message')
+
+    // Add event listener
+    form.addEventListener('submit', e => {
+        example.innerText = 'self submitted'
+        // Prevent default
+        e.preventDefault()
+        // Check if input is empty
+        if (input.value) {
+            // Emit message and reset input to empty
+            socket.emit('chat message', input.value)
+            input.value = ''
+        }
+    })
+
+    // Add event listener
+    myForm.addEventListener('submit', e => {
+        example.innerText = 'submitted'
+        // Prevent default
+        e.preventDefault()
+        // Check if input is empty
+        if (myInput.value) {
+            // Emit message and reset input to empty
+            socket.emit('private message', myInput.value)
+            myInput.value = ''
+        }
+    })
+
+    socket.on('chat message', msg => {
+        console.log('Message received')
+        let item = document.createElement('li')
+        item.innerText= msg
+        messages.appendChild(item)
+    })
+
+    socket.on('private message', (id, msg) => {
+        console.log('ping')
+        console.log('Message received')
+        console.log(id)
+        console.log(msg)
+    })
+
+</script>
