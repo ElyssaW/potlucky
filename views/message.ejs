@@ -1,56 +1,97 @@
 <style>
     .left {
-        background-color: red;
+        background-color: salmon;
+        text-align: left;
+        list-style-type: none;
+        padding: 10px;
+        border-radius: 15px;
+        border-bottom-left-radius: 0;
+        margin: 5px 0;
     }
 
     .right {
-        background-color: blue;
+        background-color: #F9AD6A;
+        text-align: right;
+        list-style-type: none;
+        padding: 10px;
+        border-radius: 15px;
+        border-bottom-right-radius: 0;
+        margin: 5px 0;
     }
 
-    .messages {
-        overflow-y: scroll;
-        height: 400px;
-        max-height: 400px;
+    #messages {
+        overflow-y: auto;
+        height: 79%;
+        max-height: 450px;
+        padding: 0;
+    }
+
+    .chat-head {
+        padding: 10px;
+        font-weight: bolder;
+    }
+
+    .chat-sidebar {
+
     }
 
     #message-window {
-        background-color: salmon;
+        background-color: #f9E07F;
         position: relative;
-        top: 10vh;
-        left: 10vw;
-        width: 75vw;
+        border-radius: 15px;
+        top: 8vh;
+        left: 22vw;
+        width: 60vw;
         height: 70vh;
+    }
+
+    .chat-form {
+        height: 20px;
+        width: 100%;
+    }
+
+    #chat-text {
+        height: 40px;
+        width: 86%;
+    }
+
+    #chat-send {
+        height: 40px;
+        width: 12%;
+        background-color: lightseagreen;
+        border-bottom-right-radius: 15px;
+        border: none;
     }
 </style>
 
-<div class="row profile-row">
-
-<div class="left-col col-md-3">
-    
-
-<div class="right-col col-md-8">
-    <div id="message-window">
+<div>
+    <div>
+        <div>
+            <div id="message-window" class="row row-cols-2">
+                <div style="background-color: lightseagreen;" class="col-lg-4 chat-sidebar">
         
-
-        <div id="chat-window">
-            <div class="chat-head">
-                <span class="chat-title">Chat with <%= user.name %></span>
-            </div>
+                </div>
+                <div id="chat-window" class=" col-md">
+                    <div class="chat-head">
+                        <span class="chat-title">Chat with <%= user.name %></span>
+                    </div>
+                    
+                    <ul id="messages">
+                        <% user.messages.forEach(message => { %>
+                            <% if (message.senderId === currentUser.id) { %>
+                                <li class="right"><%= message.content %></li>
+                            <% } else if (message.receiverId === currentUser.id) { %>
+                                <li class="left"><%= message.content %></li>
+                            <% } %>
+                       <% }) %>
+                    </ul>
             
-            <ul id="messages">
-                <% user.messages.forEach(message => { %>
-                    <% if (message.senderId === currentUser.id) { %>
-                        <li class="right"><%= message.content %></li>
-                    <% } else if (message.receiverId === currentUser.id) { %>
-                        <li class="left"><%= message.content %></li>
-                    <% } %>
-               <% }) %>
-            </ul>
-    
-            <form id="chat-form" autocomplete="off" action="">
-                <input type="text" id="chat-text">
-                <input type="submit" id="chat-send" value="send">
-            </form>
+                    <form id="chat-form" autocomplete="off" action="">
+                        <input type="text" id="chat-text">
+                        <input type="submit" id="chat-send" value="send">
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

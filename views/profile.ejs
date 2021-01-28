@@ -1,4 +1,20 @@
+<style>
+    .profile-btn {
+        background-color: #F9AD6A;
+        border: none;
+        padding: 10px;
+        margin: 10px 3px;
+        border-radius: 5px;
+    }
 
+    .profile-disabled-btn {
+        background-color: lightseagreen;
+        border: none;
+        padding: 10px;
+        margin: 10px 3px;
+        border-radius: 5px;
+    }
+</style>
 
 <div class="row profile-row">
 
@@ -11,26 +27,34 @@
     <div class="right-col col-md-8">
         <div class="card">
             <div>
-                <h1 class="profile-display display-1"> <%= user.name %> <% if (followsYou) {%> (Follows you) <%}%> </h1>
+                <h1 class="profile-display display-1"> <%= user.name %> </h1>
                 <p class="profile-display"><%= user.fills %> offers filled and <%= user.reqs %> offers made</p>
-                <h2>In <%= user.locations[0].dataValues.zipcode %></h2>
+                
+                <div>
+                    <h2 style="display: inline;">In <%= user.locations[0].dataValues.zipcode %></h2>
+            
+                    <% if (currentUser) { %>
+                        <div style="display: inline;">
+                            <form style="display: inline;" action="/message/<%= user.id %>">
+                                <input type="submit" class="profile-btn" value="Message Me">
+                            </form>
+    
+                            <% if (!following) {%> 
+                                <form style="display: inline;" action="/friend/<%= user.id %>">
+                                    <input type="hidden" value="<%= currentUser.id %>" name="id">
+                                    <input type="submit" class="profile-btn" value="Friend Me">
+                                </form>
+                            <%} else if (following) { %>
+                                <form style="display: inline;">
+                                    <input type="submit" class="profile-disabled-btn" value="Friended!">
+                                </form>
+                            <% } %>
+                        </div>
+                    <% } %>
+                </div>
             </div>
 
             <div>
-                <% if (currentUser) { %>
-                    <div>
-                        <form action="/message/<%= user.id %>">
-                            <input type="submit" value="Message Me">
-                        </form>
-
-                        <% if (!following) {%> 
-                            <form action="/friend/<%= user.id %>">
-                                <input type="hidden" value="<%= currentUser.id %>" name="id">
-                                <input type="submit" value="Friend Me">
-                            </form>
-                        <%}%>
-                    </div>
-                <% } %>
                 
                 <div class="row">
                     <div class="col">

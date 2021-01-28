@@ -15,8 +15,6 @@
 
 <script>
 
-    console.log('<%= markers[0].lat %>')
-
     mapboxgl.accessToken = '<%= apiKey %>'
 
     let map = new mapboxgl.Map({
@@ -30,14 +28,16 @@
         .setLngLat([<%= loc.lat %>, <%= loc.long %>])
         .addTo(map)
 
-    <% let i = 0 %>
-    for (let i = 0; i < <%= markersLength %>; i++) {
-        marker = new mapboxgl.Marker({color: '<%= markers[i].color %>' })
-        .setLngLat([<%= markers[i].lat %>, <%= markers[i].long %>])
-        .setPopup(new mapboxgl.Popup({ offset: 25 })
-            .setHTML('<a href="/request/show/<%= markers[i].id %>"><img class="popup-avi" width=150px src="<%= markers[i].avi %>"><h3 class="popup-title"> <%= markers[i].title %> </h3> <p> <%= markers[i].address %> </p></a>'))
-        .addTo(map)
-        <% i++ %>
-    }
+    <% if (markersLength > 0) { %>
+        <% let i = 0 %>
+        for (let i = 0; i < <%= markersLength %>; i++) {
+            marker = new mapboxgl.Marker({color: '<%= markers[i].color %>' })
+            .setLngLat([<%= markers[i].lat %>, <%= markers[i].long %>])
+            .setPopup(new mapboxgl.Popup({ offset: 25 })
+                .setHTML('<a href="/request/show/<%= markers[i].id %>"><img class="popup-avi" width=150px src="<%= markers[i].avi %>"><h3 class="popup-title"> <%= markers[i].title %> </h3> <p> <%= markers[i].address %> </p></a>'))
+            .addTo(map)
+            <% i++ %>
+        }
+    <% } %>
 
 </script>

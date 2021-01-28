@@ -1,3 +1,22 @@
+<style>
+    .home-sign-up {
+        font-size: 40px;
+        padding: 20px 80px;
+        margin-top: 30px;
+        border: white double 10px;
+        background-color: #f9E07F;
+        background-image: linear-gradient(to bottom right, #f9E07F, #F9AD6A);
+        transition: .5s;
+    }
+
+    .home-sign-up:hover {
+        background-color: #f9E07F;
+        background-image: none;
+        font-size: 44px;
+    }
+
+    
+</style>
 
 <div class="home">
     <div class="parent-title-div">
@@ -8,6 +27,10 @@
     
             <div>
                 <h1 class="home-title" style="color: black;">PotLucky!</h1>
+
+                <form action="/auth/signup">
+                    <input class="home-sign-up" type="submit" value="Sign Up!">
+                </form>
             </div>
         </div>
     </div>
