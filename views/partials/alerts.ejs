@@ -36,7 +36,7 @@
 <% } %>
 
 <% if (alerts.success) { %>
-    <% alerts.success.forEach(msg => { %>
+    <% alerts.success.forEach((msg, i) => { %>
         <div class="flash-message success" id="<%= i %>>
             <p class="flash-text"><%= msg %><span onclick="closeWindow()" class="flash-close">X</span></p>
         </div>
@@ -63,5 +63,5 @@
         Array.from(flashes).forEach((element, i) => {
             element.style.visibility = 'hidden'
         })
-    }, 2000);
+    }, 5000);
 </script>

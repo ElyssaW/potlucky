@@ -35,11 +35,17 @@
             
                     <% if (currentUser) { %>
                         <div style="display: inline;">
-                            <form style="display: inline;" action="/message/<%= user.id %>">
-                                <input type="submit" class="profile-btn" value="Message Me">
-                            </form>
-    
-                            <% if (!following) {%> 
+                            <% if (currentUser.id === user.id) { %>
+                                <form style="display: inline;" action="/message/<%= user.id %>">
+                                    <input type="submit" class="profile-btn" value="Note to Self">
+                                </form>
+                            <% } else { %>
+                                <form style="display: inline;" action="/message/<%= user.id %>">
+                                    <input type="submit" class="profile-btn" value="Message Me">
+                                </form>
+                            <% } %>
+
+                            <% if (!following && currentUser.id !== user.id) {%> 
                                 <form style="display: inline;" action="/friend/<%= user.id %>">
                                     <input type="hidden" value="<%= currentUser.id %>" name="id">
                                     <input type="submit" class="profile-btn" value="Friend Me">
