@@ -70,40 +70,28 @@ router.post('/', (req, res) => {
     }).then(results => {
         db.user.findAll({
             where: {
-                [Op.and]: [
-                {
-                    '$location.lat$': {
-                        [Op.between]: [bbox[0], bbox[2]]
-                    }
-                }, {
-                    '$location.long$': {
-                        [Op.between]: [bbox[1], bbox[3]]
-                    }
-                }, {
-                    [Op.or]: [
-                    {
-                        name: {
-                            [Op.iLike]: `%${req.body.key}%`
-                        }
-                    }
-                ]}
-            ]
+                name: {
+                    [Op.iLike]: `%${req.body.key}%`
+            }
         },
             include: [db.location]
         }).then(users => {
 
-        if (req.body.searchType !== 'both') {
-            results.forEach((element, i) => {
-                if (element.type !== req.body.searchType) {
-                    results.splice(i, 1)
-                }
-            })
-        }
+            if (req.body.searchType !== 'both') {
+                results.forEach((element, i) => {
+                    if (element.type !== req.body.searchType) {
+                        results.splice(i, 1)
+                    }
+                })
+            }
+
+            console.log(req.body)
+            console.log('-----------------------------')
 
             res.render('searchby/results.ejs', {
                 results: results, 
                 users: users,
-                searchType: req.body.searchType,
+                type: req.body.searchType,
                 loc: {lat:lat, long:long}
             })
         })

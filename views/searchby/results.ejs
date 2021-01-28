@@ -44,38 +44,48 @@
 
           <div class="display-results">
             <div class="card-bank-search">
-              <% if(searchType === 'requests' || searchType === 'offers' || searchType === 'both')
-                <% results.forEach(result => { %>
-                  <div class="row row-cols-2">
+              
+              <% if (type === 'requests' || type === 'offers' || type === 'both') { %>
+                <% if (results.length < 1) { %>
+                  <p>No results found!</p>
+                <% } else { %>
+                  <% results.forEach(result => { %>
+                    <div class="row row-cols-2">
 
-                    <div class="col-auto">
-                      <img src="<%= result.user.aviurl %>" height="80px" width="80px" alt="Avatar">
+                      <div class="col-auto">
+                        <img src="<%= result.user.aviurl %>" height="80px" width="80px" alt="Avatar">
+                      </div>
+
+                      <div class="col-md-10">
+                        <h4 style="display: inline;"><a href="/offer/show/<%= result.id %>"><%= result.title %> by <%= result.user.name %></a></h4>
+                        <p>at <%= result.location.zipcode %></p>
+                      </div>
+                      
                     </div>
-                    
-                    <div class="col-md-10">
-                      <h4 style="display: inline;"><a href="/offer/show/<%= result.id %>"><%= result.title %> by <%= result.user.name %></a></h4>
-                      <p>at <%= result.location.zipcode %></p>
-                    </div>
-                    
-                  </div>
-                <% }) %>
+                  <% }) %>
+                <% } %>
               <% } %>
 
-              <% if (searchType === 'users') { %>
-              <% users.forEach(user => { %>
-                <div class="row row-cols-2">
+              <% if (type === 'users') { %>
+                <% if (users.length < 1) { %>
+                  <p>No results found!</p>
+                <% } else { %>
+                  <% users.forEach(user => { %>
+                    <div class="row row-cols-2">
 
-                  <div class="col-auto">
-                    <img src="<%= user.aviurl %>" height="80px" width="80px" alt="Avatar">
-                  </div>
-                  
-                  <div class="col-md-10">
-                    <h4 style="display: inline;"><a href="/offer/show/<%= user.id %>"><%= user.name %></a></h4>
-                    <p>at <%= user.location.zipcode %></p>
-                  </div>
-                  
-                </div>
-              <% }) %>
+                      <div class="col-auto">
+                        <img src="<%= user.aviurl %>" height="80px" width="80px" alt="Avatar">
+                      </div>
+                      
+                      <div class="col-md-10">
+                        <h4 style="display: inline;"><a href="/offer/show/<%= user.id %>"><%= user.name %></a></h4>
+                        <p>in <%= user.locations[0].zipcode %></p>
+                      </div>
+                      
+                    </div>
+                  <% }) %>
+                <% } %>
+              <% } %>
             </div>
           </div>
         </div>
