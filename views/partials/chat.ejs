@@ -1,19 +1,96 @@
+<style>
+    #chat-window {
+        position: absolute;
+        right: 30px;
+        bottom: 30px;
+        height: 400px;
+        width: 300px;
+        padding: 5px;
+        background-color: #f9E07F;
+        border-top-left-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
 
-<div>
-    <ul height=200px style="background-color: red;" id="messages">
-        <li id="example">Messages go here</li>
-    </ul>
+    #messages {
+        margin: 0;
+        padding: 5px;
+        list-style-type: none;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    #chat-text {
+        margin: 0;
+        display: inline;
+        width: 75%;
+        border: none;
+        border: lightgray solid 2px;
+    }
+
+    #chat-send {
+        border: none;
+        margin: 0;
+        background-color: salmon;
+        width: 23%;
+    }
+
+    .chat-avi-pic {
+        position: relative;
+        display: inline;
+        width: 80px;
+        height: 80px;
+        top: -20%;
+        left: 80%;
+        border-radius: 15px;
+    }
+
+    .chat-title {
+        text-align: center;
+        display: inline;
+    }
+
+    #chat-close {
+        display: inline;
+        width: 10%;
+        font-weight: bolder;
+    }
+
+    #message-blurb {
+        position: absolute;
+        bottom: 30px;
+        right: 30px;
+        width: 120px;
+        height: 120px;
+        background-color: white;
+        border-radius: 15px;
+    }
+
+</style>
+
+<div id="chat-window">
+    <div class="chat-head">
+        <span id="chat-close" onclick="closeWindow()">( X )</span> <span class="chat-title">Chat name</span>
+    </div>
     
-    <form id="chat-pane" action="">
-        <input id="chat-submit" autocomplete="off" /><button>Send</button>
-    </form>
+    <ul id="messages">
+    </ul>
 
-    <form id="my-button" action="">
-        <input id="my-message" autocomplete="off" /><button>Send Message To Self</button>
+    <form id="chat-form" autocomplete="off" action="">
+        <input type="text" id="chat-text">
+        <input type="submit" id="chat-send" value="send">
     </form>
 </div>
 
+<div id="message-blurb">
+    stuff
+</div>
+
 <% let currentUser = {id: 0} %>
+<% let targetUser = {id: 0} %>
 <script src="/socket.io/socket.io.js"></script>
 <script>
     // Instantiate socket
@@ -22,53 +99,36 @@
             userId: <%= currentUser.id %>
         }
     })
-    
-    // Grab DOM elements
-    let form = document.getElementById('chat-pane')
-    let input = document.getElementById('chat-submit')
 
     // Grab DOM elements
-    let myForm = document.getElementById('my-button')
-    let myInput = document.getElementById('my-message')
-
-    // Add event listener
-    form.addEventListener('submit', e => {
-        example.innerText = 'self submitted'
-        // Prevent default
-        e.preventDefault()
-        // Check if input is empty
-        if (input.value) {
-            // Emit message and reset input to empty
-            socket.emit('chat message', input.value)
-            input.value = ''
-        }
-    })
+    let myForm = document.getElementById('chat-form')
+    let myInput = document.getElementById('chat-text')
 
     // Add event listener
     myForm.addEventListener('submit', e => {
-        example.innerText = 'submitted'
         // Prevent default
         e.preventDefault()
         // Check if input is empty
         if (myInput.value) {
             // Emit message and reset input to empty
-            socket.emit('private message', myInput.value)
+            socket.emit('private message', myInput.value, <%= targetUser.id %>)
             myInput.value = ''
         }
     })
 
-    socket.on('chat message', msg => {
-        console.log('Message received')
-        let item = document.createElement('li')
-        item.innerText= msg
-        messages.appendChild(item)
-    })
-
-    socket.on('private message', (id, msg) => {
+    socket.on('private message', msg => {
         console.log('ping')
         console.log('Message received')
-        console.log(id)
-        console.log(msg)
+        let item = document.createElement('li')
+        item.innerText = msg
+        messages.appendChild(item)
+        messages.style.overflowY = 'auto'
     })
+
+    let chat = document.getElementById('chat-window')
+
+    function closeWindow() {
+        chat.style.visibility = 'hidden'
+    }
 
 </script>

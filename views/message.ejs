@@ -1,0 +1,114 @@
+<style>
+    .left {
+        background-color: red;
+    }
+
+    .right {
+        background-color: blue;
+    }
+
+    .messages {
+        overflow-y: scroll;
+        height: 400px;
+        max-height: 400px;
+    }
+
+    #message-window {
+        background-color: salmon;
+        position: relative;
+        top: 10vh;
+        left: 10vw;
+        width: 75vw;
+        height: 70vh;
+    }
+</style>
+
+<div class="row profile-row">
+
+<div class="left-col col-md-3">
+    
+
+<div class="right-col col-md-8">
+    <div id="message-window">
+        
+
+        <div id="chat-window">
+            <div class="chat-head">
+                <span class="chat-title">Chat with <%= user.name %></span>
+            </div>
+            
+            <ul id="messages">
+                <% user.messages.forEach(message => { %>
+                    <% if (message.senderId === currentUser.id) { %>
+                        <li class="right"><%= message.content %></li>
+                    <% } else if (message.receiverId === currentUser.id) { %>
+                        <li class="left"><%= message.content %></li>
+                    <% } %>
+               <% }) %>
+            </ul>
+    
+            <form id="chat-form" autocomplete="off" action="">
+                <input type="text" id="chat-text">
+                <input type="submit" id="chat-send" value="send">
+            </form>
+        </div>
+    </div>
+</div>
+
+<% let targetUser = user.id %>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    // Instantiate socket
+    let socket = io({
+        extraHeaders: {
+            userId: <%= currentUser.id %>
+        }
+    })
+
+    // Grab DOM elements
+    let myForm = document.getElementById('chat-form')
+    let myInput = document.getElementById('chat-text')
+
+    // Add event listener
+    myForm.addEventListener('submit', e => {
+        // Prevent default
+        e.preventDefault()
+        // Check if input is empty
+        if (myInput.value) {
+            // Emit message and reset input to empty
+            socket.emit('private message', myInput.value, <%= targetUser %>)
+
+            let item = document.createElement('li')
+            item.innerText = myInput.value
+            item.setAttribute('class', 'left')
+            myInput.value = ''
+
+            messages.appendChild(item)
+            messages.style.overflowY = 'auto'
+        }
+    })
+
+    socket.on('private message', (msg, targetId) => {
+        console.log('ping')
+        console.log('Message received')
+        let item = document.createElement('li')
+        item.innerText = msg
+
+        if (targetId === <%= currentUser.id %>) {
+            item.setAttribute('class', 'left')
+        } else {
+            item.setAttribute('class', 'right')
+        }
+
+        messages.appendChild(item)
+        messages.style.overflowY = 'auto'
+    })
+
+    let chat = document.getElementById('chat-window')
+
+    function closeWindow() {
+        chat.style.visibility = 'hidden'
+    }
+
+</script>

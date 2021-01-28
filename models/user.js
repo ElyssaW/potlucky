@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.user.hasMany(models.request)
       models.user.belongsToMany(models.location, {through: 'userLocation'})
+      models.user.belongsToMany(models.message, {through: "userMessage"})
     }
   };
   user.init({

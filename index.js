@@ -85,15 +85,12 @@ app.get('/profile/:id', isLoggedIn, (req, res) => {
     })
 })
 
-app.get('/test', (req, res) => {
-    let accessToken = process.env.API_KEY
-    let zip = 78259
-    let street = '22210 Midbury'
-    axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?types=postcode&access_token=${accessToken}`)
-    .then(response => {
-        let bbox = response.data.features[0].bbox
-        axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${street}.json?bbox=${bbox[0]},${bbox[1]},${bbox[2]},${bbox[3]}&types=address&access_token=${accessToken}`).then(response => {
-            res.send(response.data)
+// Message route
+app.get('/message/:id', isLoggedIn, (req, res) => {
+    db.user.findByPk(req.params.id).then(user => {
+        user.getMessages().then(messages => {
+            user.messages = messages
+            res.render('message.ejs', {user:user})
         })
     })
 })
@@ -102,24 +99,39 @@ app.get('*', (req, res) => {
     res.render('404.ejs')
 })
 
-let socketUsers = []
+let socketUsers = {}
 
 io.on('connection', (socket) => {
-    socketUsers.push({id: socket.id, userid: socket.handshake.headers.userid})
+    let userId = socket.handshake.headers.userid
+    socketUsers[userId] = socket.id
     console.log('ping ----------------------------')
     console.log(socket)
     console.log(socketUsers)
 
-    socket.on('private message', msg => {
-        
-        let targetId = socketUsers[socketUsers.length-1].id
-        console.log('message ----------------------------')
-        console.log(targetId)
-        console.log(msg)
-        io.to(targetId).emit('private message', msg)
+    socket.on('private message', (msg, targetUser) => {
+        let targetId = socketUsers[targetUser]
+
+        db.message.create({
+            content: msg,
+            senderId: userId,
+            receiverId: targetUser
+        }).then(message => {
+            db.user.findByPk(userId).then(sender => {
+                message.addUser(sender).then(() => {
+                    db.user.findByPk(targetUser).then(receiver => {
+                        message.addUser(receiver).then(() => {
+                            console.log('message ----------------------------')
+                            console.log('Targeted user is ' + targetUser)
+                            console.log(targetId)
+                            console.log(msg)
+                            io.to(targetId).emit('private message', msg, targetId)
+                        })
+                    })
+                })
+            })
+        })
     })
 
-    console.log(socket.id)
     socket.on('chat message', (msg) => {
         io.emit('chat message', msg)
     })
