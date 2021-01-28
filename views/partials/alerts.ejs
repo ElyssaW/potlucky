@@ -1,11 +1,67 @@
+<style>
+    .flash-message {
+        position: absolute;
+        top: 12vh;
+        left: 2vw;
+        width: fit-content;
+        padding: 2vh;
+        border-radius: 15px;
+        box-shadow: -2px 5px 20px 2px rgba(164,136,132,.3);
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .success {
+        background-color: lightseagreen;
+    }
+
+    .error {
+        background-color: salmon;
+    }
+
+    .flash-close {
+        background-color: #f9E07F;
+        border-radius: 15px;
+        padding: 0 10px;
+        font-weight: bolder;
+    }
+</style>
+
 <% if (alerts.error) { %>
-    <% alerts.error.forEach(msg => { %>
-        <%= msg %>
+    <% alerts.error.forEach((msg, i) => { %>
+        <div class="flash-message error" id="<%= i %>">
+            <p class="flash-text"><%= msg %><span onclick="closeWindow()" class="flash-close">X</span></p>
+        </div>
     <% }) %>
 <% } %>
 
 <% if (alerts.success) { %>
     <% alerts.success.forEach(msg => { %>
-        <%= msg %>
+        <div class="flash-message success" id="<%= i %>>
+            <p class="flash-text"><%= msg %><span onclick="closeWindow()" class="flash-close">X</span></p>
+        </div>
     <% }) %>
 <% } %>
+
+<script>
+    function closeWindow() {
+        console.log('Closing window')
+        let flashes = document.getElementsByClassName('flash-message') 
+        
+        Array.from(flashes).forEach((element, i) => {
+            console.log(element.id)
+            console.log('hiding')
+            if (i == element.id) {
+                element.style.visibility = 'hidden'
+            }
+        })
+    }
+    
+    setTimeout(() => {
+        let flashes = document.getElementsByClassName('flash-message') 
+        
+        Array.from(flashes).forEach((element, i) => {
+            element.style.visibility = 'hidden'
+        })
+    }, 2000);
+</script>

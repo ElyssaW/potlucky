@@ -119,14 +119,7 @@
         if (myInput.value) {
             // Emit message and reset input to empty
             socket.emit('private message', myInput.value, <%= targetUser %>)
-
-            let item = document.createElement('li')
-            item.innerText = myInput.value
-            item.setAttribute('class', 'left')
             myInput.value = ''
-
-            messages.appendChild(item)
-            messages.style.overflowY = 'auto'
         }
     })
 
