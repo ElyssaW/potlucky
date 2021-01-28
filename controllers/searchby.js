@@ -7,18 +7,10 @@ const { request } = require('express')
 const { off } = require('process')
 
 router.get('/', (req, res) => {
-    console.log('----------------------')
-    console.log(req.body.title)
-    console.log('----------------------')
-
     res.render('searchby/home.ejs')
 })
 
 router.post('/', (req, res) => {
-    console.log('----------------------')
-    console.log(req.body)
-    console.log('----------------------')
-
     let lat
     let long
     let bbox = []
@@ -76,19 +68,45 @@ router.post('/', (req, res) => {
     },
         include: [db.user, db.location]
     }).then(results => {
+        db.user.findAll({
+            where: {
+                [Op.and]: [
+                {
+                    '$location.lat$': {
+                        [Op.between]: [bbox[0], bbox[2]]
+                    }
+                }, {
+                    '$location.long$': {
+                        [Op.between]: [bbox[1], bbox[3]]
+                    }
+                }, {
+                    [Op.or]: [
+                    {
+                        name: {
+                            [Op.iLike]: `%${req.body.key}%`
+                        }
+                    }
+                ]}
+            ]
+        },
+            include: [db.location]
+        }).then(users => {
 
-        // if (req.body.searchType !== 'both') {
-        //     results.forEach((element, i) => {
-        //         if (element.type !== req.body.searchType) {
-        //             results.splice(i, 1)
-        //         }
-        //     })
-        // }
+        if (req.body.searchType !== 'both') {
+            results.forEach((element, i) => {
+                if (element.type !== req.body.searchType) {
+                    results.splice(i, 1)
+                }
+            })
+        }
 
             res.render('searchby/results.ejs', {
                 results: results, 
-                loc: {lat:lat, long:long},
-                apiKey: process.env.API_KEY})
+                users: users,
+                searchType: req.body.searchType,
+                loc: {lat:lat, long:long}
+            })
+        })
     })
 })
 

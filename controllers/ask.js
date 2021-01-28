@@ -89,6 +89,7 @@ router.get('/search/:type', (req, res) => {
             loc: loc, 
             requests: requests,
             apiKey: process.env.API_KEY,
+            searchType: req.params.type,
             markers: markers,
             markersLength: markers.length
         })

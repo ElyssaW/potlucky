@@ -26,6 +26,11 @@
                 <label for="3">
                   Search both
                 </label>
+
+                <input type="radio" name="searchType" value="users" id="4">
+                <label for="4">
+                  Search users
+                </label>
               </div>
   
               <div>
@@ -39,16 +44,34 @@
 
           <div class="display-results">
             <div class="card-bank-search">
-              <% results.forEach(result => { %>
+              <% if(searchType === 'requests' || searchType === 'offers' || searchType === 'both')
+                <% results.forEach(result => { %>
+                  <div class="row row-cols-2">
+
+                    <div class="col-auto">
+                      <img src="<%= result.user.aviurl %>" height="80px" width="80px" alt="Avatar">
+                    </div>
+                    
+                    <div class="col-md-10">
+                      <h4 style="display: inline;"><a href="/offer/show/<%= result.id %>"><%= result.title %> by <%= result.user.name %></a></h4>
+                      <p>at <%= result.location.zipcode %></p>
+                    </div>
+                    
+                  </div>
+                <% }) %>
+              <% } %>
+
+              <% if (searchType === 'users') { %>
+              <% users.forEach(user => { %>
                 <div class="row row-cols-2">
 
                   <div class="col-auto">
-                    <img src="<%= result.user.aviurl %>" height="80px" width="80px" alt="Avatar">
+                    <img src="<%= user.aviurl %>" height="80px" width="80px" alt="Avatar">
                   </div>
                   
                   <div class="col-md-10">
-                    <h4 style="display: inline;"><a href="/offer/show/<%= result.id %>"><%= result.title %> by <%= result.user.name %></a></h4>
-                    <p>at <%= result.location.address %></p>
+                    <h4 style="display: inline;"><a href="/offer/show/<%= user.id %>"><%= user.name %></a></h4>
+                    <p>at <%= user.location.zipcode %></p>
                   </div>
                   
                 </div>
