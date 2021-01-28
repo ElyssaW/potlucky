@@ -77,9 +77,43 @@ app.get('/profile/:id', isLoggedIn, (req, res) => {
         user.getLocations().then(locations => {
             user.locations = locations
             user.getRequests().then(requests => {
-                user.requests = requests
-                
-                res.render('profile.ejs', {user:user})
+                user.getFollowers().then(followers => {
+                    user.getFollowees().then(followees => {
+                        user.requests = requests
+                        user.followers = followers
+                        user.followees = followees
+
+                        let followsYou = false;
+                        let following = false;
+
+                        user.followees.forEach(followee => {
+                            if (followee.id === req.user.id) {
+                                followsYou = true
+                            }
+                        })
+
+                        user.followers.forEach(follower => {
+                            if (follower.id === req.user.id) {
+                                following = true
+                            }
+                        })
+                    
+                        res.render('profile.ejs', {user:user, following:following, followsYou:followsYou})
+                    })
+                })
+            })
+        })
+    })
+})
+
+// Friend route
+app.get('/friend/:id', isLoggedIn, (req, res) => {
+    db.user.findByPk(req.params.id).then(user => {
+        db.user.findByPk(req.user.id).then(currentUser => {
+            user.addFollower(currentUser).then(() => {
+                currentUser.addFollowee(user).then(() => {
+                    res.redirect('/profile/' + user.id)
+                })
             })
         })
     })

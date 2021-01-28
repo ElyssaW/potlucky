@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       models.user.hasMany(models.request)
       models.user.belongsToMany(models.location, {through: 'userLocation'})
       models.user.belongsToMany(models.message, {through: "userMessage"})
+      models.user.belongsToMany(models.user, {as: 'followers', foreignKey:'friendId', through: 'userFriend' })
+      models.user.belongsToMany(models.user, {as: 'followees', foreignKey:'userId', through: 'userFriend' })
     }
   };
   user.init({
