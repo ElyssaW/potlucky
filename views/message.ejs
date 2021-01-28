@@ -22,8 +22,9 @@
     #messages {
         overflow-y: auto;
         height: 79%;
-        max-height: 450px;
+        max-height: 420px;
         padding: 0;
+        padding-right: 12px;
     }
 
     .chat-head {
@@ -62,6 +63,28 @@
         border-bottom-right-radius: 15px;
         border: none;
     }
+
+    .small-text {
+        font-size: 12px; 
+        margin: 0; 
+        color: rgba(0, 0, 0, .6);
+    }
+
+    ::-webkit-scrollbar {
+        margin: 2px;
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: salmon;
+    }
+
 </style>
 
 <div>
@@ -77,9 +100,15 @@
                     </div>
                     
                     <ul id="messages">
-                        <% user.messages.forEach(message => { %>
+                        <% user.messages.forEach((message, i) => { %>
                             <% if (message.senderId === currentUser.id) { %>
-                                <li class="right"><%= message.content %></li>
+                                <li class="right">
+                                    <span><%= message.content %></span>
+                                    <p class="small-text">
+                                        <span id="edit-<%= message.id %>">Edit -</span>
+                                        <span id="delete-<%= message.id %>" onclick="deleteMsg(<%= message.id %>, event)"> Delete</span>
+                                    </p>
+                                </li>
                             <% } else if (message.receiverId === currentUser.id) { %>
                                 <li class="left"><%= message.content %></li>
                             <% } %>
@@ -107,6 +136,9 @@
         }
     })
 
+    messages.scrollTo(0, document.body.scrollHeight)
+            
+
     // Grab DOM elements
     let myForm = document.getElementById('chat-form')
     let myInput = document.getElementById('chat-text')
@@ -119,9 +151,26 @@
         if (myInput.value) {
             // Emit message and reset input to empty
             socket.emit('private message', myInput.value, <%= targetUser %>)
+            
+            if (<%= currentUser.id %> !== <%= targetUser %>) {
+                let item = document.createElement('li')
+                item.innerText = myInput.value
+                item.setAttribute('class', 'right')
+                messages.appendChild(item)
+                messages.style.overflowY = 'auto'
+                messages.scrollTo(0, document.body.scrollHeight)
+            }
+
             myInput.value = ''
         }
     })
+
+    function deleteMsg (id, e) {
+        console.log('Deleting...')
+        console.log(e)
+        messages.removeChild(e.path[2])
+        socket.emit('delete message', id)
+    }
 
     socket.on('private message', (msg, targetId) => {
         console.log('ping')
@@ -137,6 +186,7 @@
 
         messages.appendChild(item)
         messages.style.overflowY = 'auto'
+        messages.scrollTo(0, document.body.scrollHeight)
     })
 
     let chat = document.getElementById('chat-window')

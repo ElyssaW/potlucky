@@ -71,6 +71,10 @@ app.get('/', (req, res) => {
     res.render('home.ejs')
 })
 
+app.get('/test', (req, res) => {
+    res.send('Request received')
+})
+
 // Profile route
 app.get('/profile/:id', isLoggedIn, (req, res) => {
     db.user.findByPk(req.params.id).then(user => {
@@ -138,9 +142,6 @@ let socketUsers = {}
 io.on('connection', (socket) => {
     let userId = socket.handshake.headers.userid
     socketUsers[userId] = socket.id
-    console.log('ping ----------------------------')
-    console.log(socket)
-    console.log(socketUsers)
 
     socket.on('private message', (msg, targetUser) => {
         let targetId = socketUsers[targetUser]
@@ -154,10 +155,6 @@ io.on('connection', (socket) => {
                 message.addUser(sender).then(() => {
                     db.user.findByPk(targetUser).then(receiver => {
                         message.addUser(receiver).then(() => {
-                            console.log('message ----------------------------')
-                            console.log('Targeted user is ' + targetUser)
-                            console.log(targetId)
-                            console.log(msg)
                             io.to(targetId).emit('private message', msg, targetId)
                         })
                     })
@@ -166,8 +163,12 @@ io.on('connection', (socket) => {
         })
     })
 
-    socket.on('chat message', (msg) => {
-        io.emit('chat message', msg)
+    socket.on('delete message', (id) => {
+        db.message.destroy(
+            {where: {id: id}}
+        ).then(() => {
+            console.log('Message deleted')
+        }) 
     })
 })
 

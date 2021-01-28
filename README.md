@@ -9,6 +9,7 @@ A "community kitchen" app that connects local cooks and bakers looking to make s
 - EJS Layouts
 - Mapbox API
 - Mapbox GL JS plugin
+- Socket.io
 - SCSS
 
 ### MVP
@@ -19,23 +20,26 @@ A "community kitchen" app that connects local cooks and bakers looking to make s
 
 ### Stretch Goals
 
-- [ ] Recipe search (New datatable for recipes?)
-- [ ] In-app messaging (Socket.io?)
-- [ ] Visual map representation (Mapbox GL?)
+- [ ] Recipe search (New datatable for recipes?) (NOTE: I couldn't find a suitable API that was free-use, so this has been nixed)
+- [x] In-app messaging (Socket.io?)
+- [x] Visual map representation (Mapbox GL?)
+
+### How to use
+Download and run nodemon in the project file. Place port of choice, session secret and a mapbox API key in a .env file. Then, open the website and sign up! You can search requests/offers in your area, make your own of either, search by keyword (Globally and locally) and follow/PM fellow users.
 
 ## ERD
 
-![ERD](Public/images/ERD.png)
+![ERD](/Images/ERD.png)
 
 ## Wireframes
 
-![Landing](Public/images/LandingPage.png)
+![Landing](/Images/LandingPage.png)
 
-![Request](Public/images/RequestPage.png)
+![Request](/Images/RequestPage.png)
 
-![Show](Public/images/ShowPage.png)
+![Show](/Images/ShowPage.png)
 
-![Profile](Public/images/ProfilePage.png)
+![Profile](/Images/ProfilePage.png)
 
 ### Roadblocks
 
