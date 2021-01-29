@@ -123,6 +123,66 @@ app.get('/friend/:id', isLoggedIn, (req, res) => {
     })
 })
 
+app.get('/location/:id', (req, res) => {
+    db.user.findByPk(req.params.id).then(user => {
+        user.getLocations().then(locations => {
+            console.log(locations)
+            user.location = locations[0]
+            
+            res.render('auth/location.ejs', {user:user})
+        })
+    })
+})
+
+app.put('/location/edit/:id', (req, res) => {
+    let accessToken = process.env.API_KEY
+    let zip = req.body.zipcode
+    let address = req.body.address
+
+    db.user.findByPk(req.body.userId).then(user => {
+
+        axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?types=postcode&access_token=${accessToken}`)
+        .then(response => {
+            if (response.data.features.length < 1) {
+                console.log('Address does not exist -bbox')
+                req.flash('error', 'Location could not be found. Is the address correct?')
+                res.redirect('/profile/' + req.body.userId)
+            } else {
+                let bbox = response.data.features[0].bbox
+                axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?bbox=${bbox[0]},${bbox[1]},${bbox[2]},${bbox[3]}&types=address&access_token=${accessToken}`).then(response => {
+
+                    if (response.data.features.length < 1) {
+                        console.log('Address does not exist -bbox')
+                        req.flash('error', 'Location could not be found. Is the address correct?')
+                        res.redirect('/profile/' + req.body.userId)
+                    } else {
+                        let lat = response.data.features[0].center[0]
+                        let long = response.data.features[0].center[1]
+
+                        user.removeLocation(req.body.locId).then(() => {
+
+                            db.location.findOrCreate({
+                                where: {
+                                    address: req.body.address,
+                                    city: req.body.city,
+                                    zipcode: req.body.zipcode,
+                                    lat: lat,
+                                    long: long
+                                }
+                            }).then(([location, wasCreated]) => {
+                                user.addLocation(location).then(() => {
+                                    console.log(location)
+                                    res.redirect('/profile/' + req.body.userId)
+                                })
+                            })
+                        })
+                    }
+                })
+            }
+        })
+    })
+})
+
 // Message route
 app.get('/message/:id', isLoggedIn, (req, res) => {
     db.user.findByPk(req.params.id).then(user => {
@@ -133,9 +193,9 @@ app.get('/message/:id', isLoggedIn, (req, res) => {
     })
 })
 
-app.get('*', (req, res) => {
-    res.render('404.ejs')
-})
+// app.get('*', (req, res) => {
+//     res.render('404.ejs')
+// })
 
 let socketUsers = {}
 

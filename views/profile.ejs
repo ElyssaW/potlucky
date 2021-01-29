@@ -39,6 +39,9 @@
                                 <form style="display: inline;" action="/message/<%= user.id %>">
                                     <input type="submit" class="profile-btn" value="Note to Self">
                                 </form>
+                                <form style="display: inline;" action="/location/<%= currentUser.id %>">
+                                    <input type="submit" class="profile-btn" value="Change Location">
+                                </form>
                             <% } else { %>
                                 <form style="display: inline;" action="/message/<%= user.id %>">
                                     <input type="submit" class="profile-btn" value="Message Me">

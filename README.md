@@ -27,6 +27,11 @@ A "community kitchen" app that connects local cooks and bakers looking to make s
 ### How to use
 Download and run nodemon in the project file. Place port of choice, session secret and a mapbox API key in a .env file. Then, open the website and sign up! You can search requests/offers in your area, make your own of either, search by keyword (Globally and locally) and follow/PM fellow users.
 
+#### In your .env
+- PORT=[your port number]
+- API_KEY=[Mapbox API key]
+- SESSION_SECRET=[session secret]
+
 ## ERD
 
 ![ERD](/Images/ERD.png)

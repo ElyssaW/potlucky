@@ -139,7 +139,6 @@ router.put('/edit/:id', (req, res) => {
 })
 
 router.delete('/fill/:id', (req, res) => {
-    console.log('Route hit -------------------------')
     db.request.destroy({
         where: {
             id: req.params.id

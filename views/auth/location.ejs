@@ -1,0 +1,37 @@
+
+
+<div class="midbar-lemon">
+    <div class="container login-form signup-form">
+        <h1 class='login-title'>Edit address</h1>
+  
+        <form action="/location/edit/<%= user.location.id %>?_method=PUT" method="POST" class="login-form signup-form">
+          <div>
+              <input type="hidden" name="userId" value="<%= user.id %>">
+              <input type="hidden" name="locId" value="<%= user.location.id %>">
+            <row class="row g-3">
+                <div class="form-floating mb-1 col-md-12">
+                    <input type="text" class="form-control" id="floating4" name="address" value="<%= user.location.address %>" placeholder="00000">
+                    <label for="floating4">Address</label>
+                </div>
+            </row>
+            
+            <row class="row row-cols-2">
+                <div class="form-floating mb-1 col-md-8">
+                    <input type="text" class="form-control" id="floating5" name="city" value="<%= user.location.city %>" placeholder="00000">
+                    <label for="floating5">City</label>
+                </div>
+  
+              <div class="form-floating mb-1 col-md-4">
+                <input type="text" class="form-control" id="floating6" name="zipcode" value="<%= user.location.zipcode %>" placeholder="00000">
+                <label for="floating6">Zip</label>
+              </div>
+            </row>
+  
+            <row>
+              <input class="login-submit col-md-12" type="submit">
+            </row>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
