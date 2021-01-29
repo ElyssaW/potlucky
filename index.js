@@ -193,15 +193,17 @@ app.get('/message/:id', isLoggedIn, (req, res) => {
     })
 })
 
-// app.get('*', (req, res) => {
-//     res.render('404.ejs')
-// })
+app.get('*', (req, res) => {
+    res.render('404.ejs')
+})
 
 let socketUsers = {}
 
 io.on('connection', (socket) => {
     let userId = socket.handshake.headers.userid
     socketUsers[userId] = socket.id
+
+    io.to(socketUsers[userId]).emit('currently online', socketUsers)
 
     socket.on('private message', (msg, targetUser) => {
         let targetId = socketUsers[targetUser]
@@ -215,7 +217,8 @@ io.on('connection', (socket) => {
                 message.addUser(sender).then(() => {
                     db.user.findByPk(targetUser).then(receiver => {
                         message.addUser(receiver).then(() => {
-                            io.to(targetId).emit('private message', msg, targetId)
+                            io.to(socketUsers[userId]).emit('message sent', message.id)
+                            io.to(targetId).emit('private message', msg, targetId, message.id)
                         })
                     })
                 })
