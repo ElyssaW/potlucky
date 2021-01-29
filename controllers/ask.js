@@ -20,8 +20,9 @@ router.post('/new', (req, res) => {
     }).then(request => {
         db.location.findByPk(req.body.locationId).then(location => {
             location.addRequest(request).then(() => {
-                db.user.findByPk(req.body.userId).then(user => {
+                db.user.findByPk(req.user.id).then(user => {
                     user.addRequest(request).then(() => {
+                        user.increment('reqs', { by:1 })
                         res.redirect('/request/search/' + req.body.type)
                     })
                 })
@@ -34,7 +35,7 @@ router.get('/search/:type', (req, res) => {
     let lat
     let long
 
-    if (res.locals.currentUser) {
+    if (req.user) {
         lat = res.locals.currentUser.locations[0].lat
         long = res.locals.currentUser.locations[0].long
     } else {
@@ -120,7 +121,6 @@ router.put('/edit/:id', (req, res) => {
         plain: true
         
     }).then(([rowsChanged, request]) => {
-        console.log(request)
         if (req.body.locationId !== request.locationId) {
             db.location.findByPk(request.locationId).then(location => {
                 console.log(location)

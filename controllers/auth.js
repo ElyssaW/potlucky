@@ -68,12 +68,10 @@ router.post('/signup', (req, res) => {
                                 }
                             }).then(([location, wasCreated]) => {
                                 user.addLocation(location).then(() => {
-                                    user.getLocations().then(locations => {
-                                        passport.authenticate('local', {
-                                            successRedirect: '/',
-                                            successFlash: 'Account created and user logged in!'
-                                        })(req, res)
-                                    })
+                                    passport.authenticate('local', {
+                                        successRedirect: '/',
+                                        successFlash: 'Account created and user logged in!'
+                                    })(req, res)
                                 })
                             })
                         } else {
