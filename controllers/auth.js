@@ -38,6 +38,7 @@ router.post('/signup', (req, res) => {
             axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?bbox=${bbox[0]},${bbox[1]},${bbox[2]},${bbox[3]}&types=address&access_token=${accessToken}`)
             .then(response => {
                 if (response.data.features.length > 0) {
+                    console.log(req.body)
                     db.user.findOrCreate({
                         where: {
                             email: req.body.email
@@ -53,6 +54,7 @@ router.post('/signup', (req, res) => {
                             }
                     })
                     .then(([user, wasCreated])=>{
+                        console.log(user)
                         if(wasCreated){  
                             let lat = response.data.features[0].center[0]
                             let long = response.data.features[0].center[1]
