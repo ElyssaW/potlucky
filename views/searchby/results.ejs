@@ -12,12 +12,12 @@
               </div>
 
               <div>
-                <input type="radio" name="searchType" value="offers" id="1">
+                <input type="radio" name="searchType" value="request" id="1">
                 <label for="1">
                   Search requests
                 </label>
 
-                <input type="radio" name="searchType" value="requests" id="2">
+                <input type="radio" name="searchType" value="offer" id="2">
                 <label for="2">
                   Search offers
                 </label>
@@ -45,7 +45,7 @@
           <div class="display-results">
             <div class="card-bank-search">
               
-              <% if (type === 'requests' || type === 'offers' || type === 'both') { %>
+              <% if (type === 'request' || type === 'offer' || type === 'both') { %>
                 <% if (results.length < 1) { %>
                   <p>No results found!</p>
                 <% } else { %>
@@ -57,7 +57,7 @@
                       </div>
 
                       <div class="col-md-10">
-                        <h4 style="display: inline;"><a href="/offer/show/<%= result.id %>"><%= result.title %> by <%= result.user.name %></a></h4>
+                        <h4 style="display: inline;"><a href="/request/show/<%= result.id %>"><%= result.title %> by <%= result.user.name %></a></h4>
                         <p>at <%= result.location.zipcode %></p>
                       </div>
                       

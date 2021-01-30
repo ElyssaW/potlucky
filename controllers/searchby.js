@@ -77,16 +77,15 @@ router.post('/', (req, res) => {
             include: [db.location]
         }).then(users => {
 
+            let returnArray = []
             if (req.body.searchType !== 'both') {
-                results.forEach((element, i) => {
-                    if (element.type !== req.body.searchType) {
-                        results.splice(i, 1)
-                    }
-                })
+                results = results.filter(result => result.type === req.body.searchType)
             }
 
             console.log(req.body)
+            console.log(results)
             console.log('-----------------------------')
+            console.log(returnArray)
 
             res.render('searchby/results.ejs', {
                 results: results, 
