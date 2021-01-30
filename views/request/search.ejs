@@ -13,6 +13,14 @@
     </div>
 </div>
 
+<div display="hidden">
+    <p id="index"><%= markersLength %></p>
+    <% markers.forEach((element, i) => { %>
+        <li id="<%= i %>"><%= element.lat %>,<%= element.long %></li>
+        <li id="<%= i %>info"><%= element.title %>, <%= element.id %>,<%= element.avi %>, <%= element.color %></li>
+    <% }) %>
+</div>
+
 <script>
 
     mapboxgl.accessToken = '<%= apiKey %>'
@@ -28,16 +36,23 @@
         .setLngLat([<%= loc.lat %>, <%= loc.long %>])
         .addTo(map)
 
-    <% if (markersLength > 0) { %>
-        <% let i = 0 %>
-        for (let i = 0; i < <%= markersLength %>; i++) {
-            marker = new mapboxgl.Marker({color: '<%= markers[i].color %>' })
-            .setLngLat([<%= markers[i].lat %>, <%= markers[i].long %>])
-            .setPopup(new mapboxgl.Popup({ offset: 25 })
-                .setHTML('<a href="/request/show/<%= markers[i].id %>"><img class="popup-avi" width=150px src="<%= markers[i].avi %>"><h3 class="popup-title"> <%= markers[i].title %> </h3> <p> <%= markers[i].address %> </p></a>'))
-            .addTo(map)
-            <% i++ %>
-        }
-    <% } %>
+    let indexNum = parseInt(index.innerText)
+    for (let i = 0; i < indexNum; i++) {
+        let data = document.getElementById(i).innerText
+        let popupData = document.getElementById(`${i}info`).innerText
+        console.log(data)
+        data = data.split(',')
+        console.log(data)
+
+        console.log(popupData)
+        popupData = popupData.split(',')
+        console.log(popupData[0])
+
+        marker = new mapboxgl.Marker({color: `${popupData[3]}` })
+        .setLngLat(data)
+        .setPopup(new mapboxgl.Popup({ offset: 25 })
+                .setHTML(`<a href="/request/show/${popupData[1]}"><img class="popup-avi" width=150px src="${popupData[2]}"><h3 class="popup-title"> ${popupData[0]} </h3></a>`))
+        .addTo(map)
+    }
 
 </script>

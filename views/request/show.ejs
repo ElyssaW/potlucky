@@ -34,14 +34,14 @@
 
                     <form action="/request/fill/<%= request.id %>?_method=DELETE" method="POST">
                         <input type="hidden" name="user" value="<%= currentUser.id %>">
-                        <input type="submit" class="btn btn-primary" value="Fill Request">
+                        <input type="submit" class="btn btn-primary" value="Fill <%= request.type %>">
                     </form>
                     
                     <% if (currentUser && currentUser.id === request.user.id) { %>
-                        <a href="/request/edit/<%= request.id %>" class="btn btn-primary">Edit request</a>
+                        <a href="/request/edit/<%= request.id %>" class="btn btn-primary">Edit <%= request.type %></a>
                 
                         <form action="/request/delete/<%= request.id %>?_method=DELETE" method="POST" style="display: inline;">
-                            <input type="submit" class="btn btn-danger" value="Delete request">
+                            <input type="submit" class="btn btn-danger" value="Delete <%= request.type %>">
                         </form>
                     <% } %>
                 <% } %>

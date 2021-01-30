@@ -35,7 +35,7 @@ router.get('/search/:type', (req, res) => {
     let lat
     let long
 
-    if (req.user) {
+    if (res.locals.currentUser) {
         lat = res.locals.currentUser.locations[0].lat
         long = res.locals.currentUser.locations[0].long
     } else {
@@ -44,8 +44,6 @@ router.get('/search/:type', (req, res) => {
     }
 
     let bbox = [lat-1, long-1, parseFloat(lat)+1, parseFloat(long)+1]
-
-    console.log(req.params.type)
 
     db.request.findAll({
         where: {
@@ -85,6 +83,8 @@ router.get('/search/:type', (req, res) => {
 
             markers.push(object)
         })
+
+        console.log(markers)
 
         res.render('request/search.ejs', {
             loc: loc, 

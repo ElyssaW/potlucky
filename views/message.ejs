@@ -118,9 +118,6 @@
                             <% if (message.senderId === currentUser.id) { %>
                                 <li class="right">
                                     <span><%= message.content %></span>
-                                    <p class="small-text">
-                                        <span id="delete-<%= message.id %>" onclick="deleteMsg(<%= message.id %>, event)"> Delete</span>
-                                    </p>
                                 </li>
                             <% } else if (message.receiverId === currentUser.id) { %>
                                 <li class="left"><%= message.content %></li>
@@ -166,6 +163,9 @@
         // Check if input is empty
         if (myInput.value) {
             // Emit message and reset input to empty
+            console.log(<%= currentUser.id %>)
+            console.log(<%= user.id %>)
+            console.log(<%= targetUser %>)
             socket.emit('private message', myInput.value, <%= targetUser %>)
         }
     })
@@ -178,31 +178,14 @@
         item.setAttribute('class', 'right')
         messages.appendChild(item)
 
-        // Create new small text to contain delete button
-        let p = document.createElement('p')
-        p.setAttribute('class', 'small-text')
-        item.appendChild(p)
-
-        // Create delete button
-        let span = document.createElement('span')
-        span.setAttribute(`onclick`, `deleteMsg(${msgId}, event)`)
-        span.innerText = 'Delete'
-        p.appendChild(span)
-
         // Go to the message and reset input bar
         messages.style.overflowY = 'auto'
         messages.scrollTo(0, document.body.scrollHeight)
         myInput.value = ''
     })
 
-    function deleteMsg (id, e) {
-        messages.removeChild(e.path[2])
-        socket.emit('delete message', id)
-    }
-
     socket.on('private message', (msg, targetId, msgId) => {
-        console.log(targetId)
-        if (targetId !== socket.id) {
+        console.log(targetId) 
             let item = document.createElement('li')
             item.innerText = msg
             item.setAttribute('class', 'left')
@@ -210,7 +193,6 @@
             messages.appendChild(item)
             messages.style.overflowY = 'auto'
             messages.scrollTo(0, document.body.scrollHeight)
-        }
     })
 
     socket.on('currently online', userList => {

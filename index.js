@@ -109,7 +109,7 @@ app.get('/profile/:id', isLoggedIn, (req, res) => {
 // Friend route
 app.get('/friend/:id', isLoggedIn, (req, res) => {
     db.user.findByPk(req.params.id).then(user => {
-        db.user.findByPk(req.user.id).then(currentUser => {
+        db.user.findByPk(req.params.id).then(currentUser => {
             user.addFollower(currentUser).then(() => {
                 currentUser.addFollowee(user).then(() => {
                     res.redirect('/profile/' + user.id)
@@ -120,7 +120,7 @@ app.get('/friend/:id', isLoggedIn, (req, res) => {
 })
 
 app.get('/location/:id', isLoggedIn, (req, res) => {
-    db.user.findByPk(req.user.id).then(user => {
+    db.user.findByPk(req.params.id).then(user => {
         user.getLocations().then(locations => {
 
             user.location = locations[0]
@@ -135,7 +135,7 @@ app.put('/location/edit/:id', (req, res) => {
     let zip = req.body.zipcode
     let address = req.body.address
 
-    db.user.findByPk(req.user.id).then(user => {
+    db.user.findByPk(req.body.userId).then(user => {
 
         axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?types=postcode&access_token=${accessToken}`)
         .then(response => {
