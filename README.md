@@ -2,6 +2,9 @@
 
 A "community kitchen" app that connects local cooks and bakers looking to make some food with people in their area looking to eat some food. Users sign up on the app, and can create new "offers," where they offer food they've made or would like to make up for other users to come pick up. Or they can create "requests," where they ask for a particular dish, or at a particular time/date, and post the request for other users to fill.
 
+### Deployment Link
+https://potlucky-app.herokuapp.com/
+
 ## Tech Stack
 - HTML/CSS/Javascript
 - Express
