@@ -51,11 +51,7 @@
         let flashes = document.getElementsByClassName('flash-message') 
         
         Array.from(flashes).forEach((element, i) => {
-            console.log(element.id)
-            console.log('hiding')
-            if (i == element.id) {
-                element.style.visibility = 'hidden'
-            }
+            element.style.visibility = 'hidden'
         })
     }
     

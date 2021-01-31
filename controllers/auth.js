@@ -23,7 +23,7 @@ router.get('/signup/confirm', (req, res) => {
 // Post signup
 router.post('/signup', (req, res) => {
     if(!req.body.aviurl) {
-        req.body.aviurl = '/Images/avatars/' + (Math.floor(Math.random() * 4)+1) + '.jpg'
+        req.body.aviurl = 'https://github.com/ElyssaW/potlucky/blob/main/Public/Images/avatars/' + (Math.floor(Math.random() * 6)+1) + '.jpg?raw=true'
     }
 
     let accessToken = process.env.API_KEY
