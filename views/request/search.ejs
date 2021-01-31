@@ -14,10 +14,10 @@
 </div>
 
 <div display="hidden">
-    <p id="index"><%= markersLength %></p>
+    <p display="hidden" id="index"><%= markersLength %></p>
     <% markers.forEach((element, i) => { %>
-        <li id="<%= i %>"><%= element.lat %>,<%= element.long %></li>
-        <li id="<%= i %>info"><%= element.title %>, <%= element.id %>,<%= element.avi %>, <%= element.color %></li>
+        <li display="hidden" id="<%= i %>"><%= element.lat %>,<%= element.long %></li>
+        <li display="hidden" id="<%= i %>info"><%= element.title %>, <%= element.id %>,<%= element.avi %>, <%= element.color %></li>
     <% }) %>
 </div>
 
