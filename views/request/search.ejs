@@ -13,11 +13,11 @@
     </div>
 </div>
 
-<div style="display: hidden">
-    <p style="display: hidden" id="index"><%= markersLength %></p>
+<div style="opacity: 0;">
+    <p style="opacity: 0;" id="index"><%= markersLength %></p>
     <% markers.forEach((element, i) => { %>
-        <li style="display: hidden" id="<%= i %>"><%= element.lat %>,<%= element.long %></li>
-        <li style="display: hidden" id="<%= i %>info"><%= element.title %>, <%= element.id %>,<%= element.avi %>, <%= element.color %></li>
+        <li style="opacity: 0; font-size: 1px" id="<%= i %>"><%= element.lat %>,<%= element.long %></li>
+        <li style="opacity: 0; font-size: 1px" id="<%= i %>info"><%= element.title %>, <%= element.id %>,<%= element.avi %>, <%= element.color %></li>
     <% }) %>
 </div>
 
