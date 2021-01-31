@@ -8,6 +8,7 @@ const isLoggedIn = require('./middleware/isLoggedIn.js')
 const db = require('./models')
 const methodOverride = require('method-override')
 const axios = require('axios')
+const { Op } = require("sequelize")
 
 // Instantiate express
 let app = express()
@@ -29,6 +30,7 @@ app.use(express.urlencoded({ extended: false }))
 // Public folder
 const path = require('path')
 const { use } = require('./controllers/ask.js')
+const { send } = require('process')
 app.use(express.static(path.join(__dirname, 'public')))
 
 // Session middleware
@@ -181,8 +183,31 @@ app.put('/location/edit/:id', (req, res) => {
 
 // Message route
 app.get('/message/:id', isLoggedIn, (req, res) => {
-    db.user.findByPk(req.params.id).then(user => {
-        user.getMessages().then(messages => {
+    db.message.findAll({
+        where: {
+            [Op.or]: [
+                {
+                    [Op.and]: [
+                        {
+                            senderId: req.params.id
+                        }, {
+                            receiverId: req.user.id
+                        }
+                    ]
+                }, {
+                    [Op.and]: [
+                        {
+                            senderId: req.user.id
+                        }, {
+                            receiverId: req.params.id
+                        }
+                    ]
+                }
+            ]
+        }
+    }).then(messages => {
+        db.user.findByPk(req.params.id).then(user => {
+            console.log(messages)
             user.messages = messages
             res.render('message.ejs', {user:user})
         })
@@ -203,6 +228,10 @@ io.on('connection', (socket) => {
 
     socket.on('private message', (msg, targetUser) => {
         let targetId = socketUsers[targetUser]
+        let senderId = socketUsers[userId]
+        console.log(socketUsers)
+        console.log(targetId)
+        console.log(senderId)
 
         db.message.create({
             content: msg,
@@ -214,7 +243,7 @@ io.on('connection', (socket) => {
                     db.user.findByPk(targetUser).then(receiver => {
                         message.addUser(receiver).then(() => {
                             io.to(socketUsers[userId]).emit('message sent', message.id)
-                            io.to(targetId).emit('private message', msg, targetId, message.id)
+                            io.to(targetId).emit('private message', msg, targetId, targetUser, senderId, sender.id, message.id)
                         })
                     })
                 })
@@ -228,6 +257,13 @@ io.on('connection', (socket) => {
         ).then(() => {
             console.log('Message deleted')
         }) 
+    })
+
+    socket.on('disconnect', () => {
+        console.log('disconnected')
+        let userId = socket.handshake.headers.userid
+        delete socketUsers[userId]
+        console.log(socketUsers)
     })
 })
 

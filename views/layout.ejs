@@ -19,6 +19,376 @@
             @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap');
+
+                      
+body {
+    background-color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+}
+
+.btn-primary {
+    background-color: #f9E07F;
+    border: none;
+    color: black;
+}
+
+.navbar {
+    background-color: none;
+    border: none;
+}
+
+.nav-title {
+    padding: 5px 20px;
+    transition: 1s;
+}
+
+.nav-title:hover {
+    color: #f9E07F;
+    background-color: black;
+}
+
+.hover-nav {
+    position: relative;
+    transition: 1s;
+}
+
+.hover-nav:hover {
+    background-color: #f9E07F;
+    color: #F9AD6A;
+}
+
+.avi {
+    position: absolute;
+    top: 2vh;
+    border-radius: 25px;
+    right: 5vw;
+    width: 50px;
+}
+
+.home-title {
+    color: black;
+    font-size: 150px;
+    font-family: 'Bungee Inline', cursive;
+}
+
+.parent-title-div {
+    z-index: 10;
+}
+
+.parent-title-div:hover .title-background-div {
+    filter: blur(0);
+}
+
+.parent-title-div:hover .title-background-div-404 {
+    filter: blur(0);
+}
+
+.title-background-div {
+    position: absolute;
+    background-image: url('https://imgur.com/Ukag5R6');
+    background-position: 1000% 50%;
+    background-repeat: no-repeat;
+    background-size: 1500px;
+    z-index: -10;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    transition: 1s;
+}
+
+.title-background-div-404 {
+    position: absolute;
+    background-image: url('https://imgur.com/xoL8q70');
+    background-position: center;
+    background-size: 1500px;
+    z-index: -10;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    transition: 1s;
+}
+
+.title-subhead:hover {
+    padding-left: 150px;
+}
+
+.title-background-div:hover {
+    filter: blur(0);
+    -webkit-filter: blur(0);
+}
+
+.title-div {
+    display: flex;
+    height: 90vh;
+    color: black;
+    padding-top: 20vh;
+    padding-left: 3vw;
+}
+
+.midbar {
+    background-color: #f9E07F;
+}
+
+.map-container {
+    z-index: 9;
+    padding: 30px;
+}
+
+.map-full{
+    z-index: -1;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.map-sidebar{
+    float: right;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.listings {
+    background-color: white;
+    height: 100%;
+}
+
+.list-sidebar {
+    height: 80vh;
+    width: 500px;
+    padding: 0;
+}
+
+.request-card a {
+    color: black;
+    margin: 10px;
+    background-color: #F9AD6A;
+    padding: 15px;
+    width: 90%;
+    height: 100px;
+    transition: 1s;
+}
+
+.request-card:hover {
+    height: 110px;
+    background-color: #f9E07F;
+}
+
+.login-form {
+    padding: 20px;
+    border: black solid 10px;
+    background-color: #f9E07F;
+    width: 25vw;
+    height: 500px;
+}
+
+.login-title {
+    font-family: 'Bungee Inline', cursive;
+}
+
+.login-label {
+    font-weight: bold;
+}
+
+.field-login {
+    width: 90%;
+    padding: 10px;
+    margin: 5px 0;
+    border: none;
+}
+
+.login-submit {
+    font-weight: bold;
+    margin: 0;
+    width: 90%;
+    background-color: white;
+    padding: 15px;
+    border: none;
+    border-bottom-right-radius: 25px;
+    transition: 1s;
+}
+
+.login-submit:hover {
+    background-color: yellow;
+    border-radius: 0px;
+}
+
+.signup-form{
+    width: 35vw;
+}
+
+.nav-title{
+    font-family: 'Bungee Inline', cursive;
+    font-size: 30px;
+    padding: 18px;
+}
+
+.home-title {
+    font-family: 'Bungee Inline', cursive;
+    font-size: 150px;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.subhead {
+    position: relative;
+    top: -30px;
+    margin: 0;
+    padding: 0;
+    color: #F9AD6A;
+}
+
+.mapboxgl-popup {
+    max-width: 200px;
+  }
+  
+  .mapboxgl-popup-content {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .popup-title {
+      padding: 2px;
+      border-radius: 5px;
+      background-color: #f9E07F;
+  }
+
+ 
+  .profile-row {
+      width: 80vw;
+      height: 100vh;
+  }
+
+  .left-col {
+      background-image: url('https://imgur.com/DHuEBQG');
+      background-size: 500px;
+      background-repeat: repeat;
+      border-right: white solid 50px;
+  }
+
+  .profile-pic {
+      z-index: 5;
+      position:absolute;
+      top: 15vh;
+      left: 140px;
+      width: 250px;
+      border-radius: 30px;
+  }
+
+  .card {
+      padding: 20px;
+      height: 70vh;
+      width: 50vw;
+      position: relative;
+      top: 10vh;
+      border: none;
+      left: 10vw;
+  }
+
+  .profile-display {
+      display: inline;
+  }
+
+  .card-bank-search {
+      border-radius: 15px;
+      padding: 10px;
+      background-color: #f9E07F;
+  }
+
+.map-show {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 30px;
+}
+
+.map-pic {
+    z-index: 5;
+    position:absolute;
+    padding: 0;
+    top: 15vh;
+    left: 15vw;
+    width: 20vw;
+    height: 65vh;
+    border-radius: 30px;
+    border: white solid 10px;
+}
+
+.map-show-map {
+    margin: 0;
+    height: 90vh;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.col-one {
+    position: absolute;
+    height: 90vh;
+    background-color: white;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.card-bank {
+    overflow-y: auto;
+    height: 75vh;
+    padding: 0 15px;
+}
+
+.well {
+    margin: 10px 0;
+    display: flex;
+}
+
+.card-text {
+    background-color: #F9AD6A;
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    margin:0 10px;
+    width: 100%;
+    padding: 7px;
+    transition: 1s;
+}
+
+.card-text:hover {
+    background-color: white;
+    border-radius: 0;
+}
+
+.title {
+    height: 8%;
+    text-align: center;
+    z-index: 10;
+}
+
+.see-other {
+    margin: 0 auto;
+    background-color: white;
+}
         </style>
         
 <link rel="stylesheet" href="/CSS/style.css">

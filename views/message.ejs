@@ -117,10 +117,12 @@
                         <% user.messages.forEach((message, i) => { %>
                             <% if (message.senderId === currentUser.id) { %>
                                 <li class="right">
-                                    <span><%= message.content %></span>
+                                    <%= message.content %>
                                 </li>
-                            <% } else if (message.receiverId === currentUser.id) { %>
-                                <li class="left"><%= message.content %></li>
+                            <% } else { %>
+                                <li class="left">
+                                    <%= message.content %>
+                                </li>
                             <% } %>
                        <% }) %>
                     </ul>
@@ -184,8 +186,13 @@
         myInput.value = ''
     })
 
-    socket.on('private message', (msg, targetId, msgId) => {
-        console.log(targetId) 
+    socket.on('private message', (msg, targetId, targetUserId, senderId, senderUserId, msgId) => {
+        console.log('Private message received') 
+        console.log(targetId)
+        console.log(targetUserId)
+        console.log(senderId)
+        console.log(senderUserId)
+        if (targetId !== senderId && senderUserId === <%= targetUser %>) {
             let item = document.createElement('li')
             item.innerText = msg
             item.setAttribute('class', 'left')
@@ -193,6 +200,7 @@
             messages.appendChild(item)
             messages.style.overflowY = 'auto'
             messages.scrollTo(0, document.body.scrollHeight)
+        }
     })
 
     socket.on('currently online', userList => {
@@ -219,5 +227,6 @@
             }
         })
     })
+
 
 </script>

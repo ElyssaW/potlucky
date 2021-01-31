@@ -21,7 +21,7 @@ A "community kitchen" app that connects local cooks and bakers looking to make s
 ### Stretch Goals
 
 - [ ] Recipe search (New datatable for recipes?) (NOTE: I couldn't find a suitable API that was free-use, so this has been nixed)
-- [x] In-app messaging (Socket.io?)
+- [x] In-app messaging (Socket.io?) (NOTE: I wish I could mark something as halfway done. The DM system is there and semi-functional, but pretty buggy.)
 - [x] Visual map representation (Mapbox GL?)
 
 ### How to use
@@ -49,3 +49,7 @@ Download and run nodemon in the project file. Place port of choice, session secr
 ### Roadblocks
 
 The MVP seems very doable - the only new challenge there is geocoding, and the Mapbox API seems to be pretty helpful. The stretch goals are a bit more of a challenge. Is Socket.io a good choice for in-app messaging? I played around with it and got a universal chat system working, but can I make it do private DMs, user to user? How challenging will a map visualization be? 
+
+### POST-PROJECT WRITE-UP
+
+This project isn't quite as polished as Spellcheckers, but it had the half the time, and I'm pretty happy with what I accomplished with it. I'd like to continue fixing the small bugs and QoL fixes that I wasn't able to get to, and after that, some more added functionality - like display usernames instead of just user index
